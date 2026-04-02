@@ -1,7 +1,9 @@
 <Solution>
   <Folder Name="/Code/">
-    <File Path="Text1.txt" />
+    <File Path="TextFile1.txt" />
     <Project Path="Code/Abc.Aids/Aids.csproj" />
+    <Project Path="Code/Abc.Data/Data.csproj" Id="a280cbf8-4da1-48c3-8cb8-512c3b25e49e" />
+    <Project Path="Code/Abc.Domain/Domain.csproj" Id="82b2d06b-20bb-4fc3-8c7a-3b69b9423e8f" />
   </Folder>
   <Folder Name="/Soft/" />
   <Folder Name="/Tests/" />
