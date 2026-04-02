@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Code/">
     <Project Path="Code/Abc.Aids/Aids.csproj" />
+    <Project Path="Code/Abc.Data/Data.csproj" Id="a280cbf8-4da1-48c3-8cb8-512c3b25e49e" />
   </Folder>
   <Folder Name="/Soft/" />
   <Folder Name="/Tests/" />
