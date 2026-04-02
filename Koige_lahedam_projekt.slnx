@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Code/">
+    <File Path="Text1.txt" />
     <Project Path="Code/Abc.Aids/Aids.csproj" />
   </Folder>
   <Folder Name="/Soft/" />
