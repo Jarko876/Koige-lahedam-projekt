@@ -1,1 +1,7 @@
-<Solution />
+<Solution>
+  <Folder Name="/Code/">
+    <Project Path="Code/Abc.Aids/Aids.csproj" />
+  </Folder>
+  <Folder Name="/Soft/" />
+  <Folder Name="/Tests/" />
+</Solution>
