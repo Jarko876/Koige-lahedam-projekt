@@ -1,10 +1,18 @@
 <Solution>
   <Folder Name="/Code/">
     <File Path="TextFile1.txt" />
-    <Project Path="Code/Abc.Aids/Aids.csproj" />
-    <Project Path="Code/Abc.Data/Data.csproj" Id="a280cbf8-4da1-48c3-8cb8-512c3b25e49e" />
-    <Project Path="Code/Abc.Domain/Domain.csproj" Id="82b2d06b-20bb-4fc3-8c7a-3b69b9423e8f" />
+    <Project Path="Code/Aids/Aids.csproj" />
+    <Project Path="Code/Data/Data.csproj" />
+    <Project Path="Code/Domain/Domain.csproj" />
+    <Project Path="Code/Infra/Infra.csproj" />
+    <Project Path="Code/Jobs/Jobs.csproj" />
   </Folder>
   <Folder Name="/Soft/" />
-  <Folder Name="/Tests/" />
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Aids/Aids.csproj" />
+    <Project Path="Tests/Data/Data.csproj" />
+    <Project Path="Tests/Domain/Domain.csproj" />
+    <Project Path="Tests/Infra/Infra.csproj" />
+    <Project Path="Tests/Jobs/Jobs.csproj" />
+  </Folder>
 </Solution>
