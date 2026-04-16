@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
 	  <Nullable>disable</Nullable>
-	  <AssemblyName>Abc.Soft.Web</AssemblyName>
-	  <RootNamespace>Abc.Soft.Web</RootNamespace>
+	  <AssemblyName>Abc.Soft.Yritus_haldur</AssemblyName>
+	  <RootNamespace>Abc.Soft.Yritus_haldur</RootNamespace>
 	  <PlatformTarget>AnyCPU</PlatformTarget>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Abc_Soft_Yritus_haldur-375899df-c246-4ee4-9abe-a7499ecd9d4b</UserSecretsId>
@@ -12,12 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abc.Soft.Yritus_haldur.Client\Yritus_haldur.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yritus_haldur.Client\Yritus_haldur.Client.csproj" />
   </ItemGroup>
 
 </Project>
