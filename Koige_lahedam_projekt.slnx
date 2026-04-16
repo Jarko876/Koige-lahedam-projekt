@@ -8,6 +8,10 @@
     <Project Path="Code/Jobs/Jobs.csproj" />
   </Folder>
   <Folder Name="/Soft/" />
+  <Folder Name="/Soft/Yritus_haldur/">
+    <Project Path="Soft/Yritus_haldur/Yritus_haldur.Client/Yritus_haldur.Client.csproj" />
+    <Project Path="Soft/Yritus_haldur/Yritus_haldur/Yritus_haldur.csproj" />
+  </Folder>
   <Folder Name="/Tests/">
     <Project Path="Tests/Aids/Aids.csproj" />
     <Project Path="Tests/Data/Data.csproj" />
