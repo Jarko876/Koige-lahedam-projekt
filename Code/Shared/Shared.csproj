@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+	  <Nullable>disable</Nullable>
+	  <AssemblyName>Abc.Shared</AssemblyName>
+	  <RootNamespace>Abc.Shared</RootNamespace>
+	  <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Jobs\Jobs.csproj" />
+  </ItemGroup>
+
+
+
+</Project>
