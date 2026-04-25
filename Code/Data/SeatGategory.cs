@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Abc.Data.Common;
+
+//vastutab Allan
 
 namespace Abc.Data
 {
-    public class SeatCategory
+    public class SeatCategory : NamedEntity
     {
-        //vastutab Allan
+        public decimal PriceMultiplier { get; set; }
     }
 }
