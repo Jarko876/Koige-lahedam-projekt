@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/Code/">
-    <File Path="TextFile1.txt" />
     <Project Path="Code/Aids/Aids.csproj" />
     <Project Path="Code/Data/Data.csproj" />
     <Project Path="Code/Domain/Domain.csproj" />
