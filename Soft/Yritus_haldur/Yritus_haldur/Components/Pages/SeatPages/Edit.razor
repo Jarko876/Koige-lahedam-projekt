@@ -1,0 +1,114 @@
+﻿@page "/seats/edit"
+@using Microsoft.EntityFrameworkCore
+@using Abc.Data
+@inject IDbContextFactory<Abc.Soft.Yritus_haldur.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Seat</h2>
+<hr />
+@if (Seat is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Seat" OnValidSubmit="UpdateSeat" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Seat.Id" value="@Seat.Id" />
+                <div class="mb-3">
+                    <label for="number" class="form-label">Number:</label>
+                    <InputNumber id="number" @bind-Value="Seat.Number" class="form-control" />
+                    <ValidationMessage For="() => Seat.Number" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="row" class="form-label">Row:</label>
+                    <InputNumber id="row" @bind-Value="Seat.Row" class="form-control" />
+                    <ValidationMessage For="() => Seat.Row" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="hallid" class="form-label">HallId:</label>
+                    <InputNumber id="hallid" @bind-Value="Seat.HallId" class="form-control" />
+                    <ValidationMessage For="() => Seat.HallId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="seatcategoryid" class="form-label">SeatCategoryId:</label>
+                    <InputNumber id="seatcategoryid" @bind-Value="Seat.SeatCategoryId" class="form-control" />
+                    <ValidationMessage For="() => Seat.SeatCategoryId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name:</label>
+                    <InputText id="name" @bind-Value="Seat.Name" class="form-control" />
+                    <ValidationMessage For="() => Seat.Name" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="timestamp" class="form-label">Timestamp:</label>
+                    <InputText id="timestamp" @bind-Value="Seat.Timestamp" class="form-control" />
+                    <ValidationMessage For="() => Seat.Timestamp" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/seats">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private Guid Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Seat? Seat { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Seat ??= await context.Seats.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Seat is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateSeat()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Seat!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!SeatExists(Seat!.Id))
+            {
+                NavigationManager.NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/seats");
+    }
+
+    private bool SeatExists(Guid id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Seats.Any(e => e.Id == id);
+    }
+}
