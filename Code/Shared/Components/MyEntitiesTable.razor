@@ -1,0 +1,72 @@
+﻿@using Abc.Data.Common
+@using Abc.Infra
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using System.Reflection
+@using System.Collections
+
+@typeparam TEntity where TEntity : BaseEntity
+
+<QuickGrid Class="table myTable" Items="Entities">
+    @foreach (var p in typeof(TEntity).GetProperties()) {
+        @if (!show(p)) continue;
+        <TemplateColumn title="@p.Name" Context="y">
+            @(value(p, y))
+        </TemplateColumn>
+    }
+        
+        <TemplateColumn Context="y">
+            <a href="@($"{BasePath}/edit?id={y.Id}")">Edit</a> |
+            <a href="@($"{BasePath}/details?id={y.Id}")">Details</a> |
+            <a href="@($"{BasePath}/delete?id={y.Id}")">Delete</a>
+        </TemplateColumn>
+    </QuickGrid>
+
+    <MyTablePageNav TotalCount="@totalCount" CurrentUri="@nav.Uri" Page="2" PageSize="6" />
+
+
+@code {
+    private IQueryable<TEntity> Entities { get; set; } 
+    [Parameter] public IRepo<TEntity> Repo { get; set; }
+    [Parameter] public string BasePath { get; set; }
+    [Inject] protected NavigationManager nav { get; set; }
+    private int totalCount;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Repo is null) return;
+        totalCount = await Repo.CountAsync();
+        Entities = (await Repo.GetAsync()).AsQueryable();
+    }
+
+    private string value(PropertyInfo p, TEntity e)
+    {
+        var value = p?.GetValue(e);
+        return value?.ToString() ?? string.Empty;
+    }
+
+    private bool show(PropertyInfo p)
+    {
+        if (p is null) return false;
+        if (p.Name == nameof(NamedEntity.Id)) return false;
+        var t = p.PropertyType;
+        if (t == typeof(string)) return true;
+        if (typeof(IEnumerable).IsAssignableFrom(t)) return false;
+        if (t.IsClass) return false;
+        return true;
+    }
+
+}
+
+<style>
+    .myTable {
+        table-layout: fixed;
+        width: 100%;
+        max-width: 100%;
+    }
+
+        .myTable td {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+</style>

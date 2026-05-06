@@ -1,41 +1,21 @@
 ﻿@page "/seats"
-@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+@attribute [ExcludeFromInteractiveRouting]
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Abc.Data
-@using Abc.Soft.Yritus_haldur.Data
-@implements IAsyncDisposable
-@inject IDbContextFactory<Abc.Soft.Yritus_haldur.Data.ApplicationDbContext> DbFactory
+@using Abc.Infra
 
-<PageTitle>Index</PageTitle>
+@inject NavigationManager NavigationManager
+@inject ISeatsRepo repo
 
-<h1>Index</h1>
+<MyIndexPage TItem="Seat"
+             PageTitleText="Seats"
+             EntityTitle="Seats"
+             Repo="repo"
+             BasePath="seats">
+</MyIndexPage>
 
-<p>
-    <a href="seats/create">Create New</a>
-</p>
-
-<QuickGrid Class="table" Items="context.Seats">
-    <PropertyColumn Property="seat => seat.Number" />
-    <PropertyColumn Property="seat => seat.Row" />
-    <PropertyColumn Property="seat => seat.HallId" />
-    <PropertyColumn Property="seat => seat.SeatCategoryId" />
-    <PropertyColumn Property="seat => seat.Name" />
-    <PropertyColumn Property="seat => seat.Timestamp" />
-
-    <TemplateColumn Context="seat">
-        <a href="@($"seats/edit?id={seat.Id}")">Edit</a> |
-        <a href="@($"seats/details?id={seat.Id}")">Details</a> |
-        <a href="@($"seats/delete?id={seat.Id}")">Delete</a>
-    </TemplateColumn>
-</QuickGrid>
 
 @code {
-    private ApplicationDbContext context = default!;
-
-    protected override void OnInitialized()
-    {
-        context = DbFactory.CreateDbContext();
-    }
-
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+  
 }

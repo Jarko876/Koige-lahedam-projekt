@@ -1,4 +1,4 @@
-using Abc.Soft.Yritus_haldur.Data;
+using Abc.Infra;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 

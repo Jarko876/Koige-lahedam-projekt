@@ -6,6 +6,5 @@ namespace Abc.Data
 {
     public class SeatCategory : NamedEntity
     {
-        public decimal PriceMultiplier { get; set; }
     }
 }

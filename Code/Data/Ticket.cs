@@ -14,12 +14,12 @@ namespace Abc.Data
         //public User User { get; set; } - pole veel klassi tehtud, hiljem tagasi panna.
 
         //millisele kohale
-        public int SeatId { get; set; }
+        public Guid SeatId { get; set; }
         public Seat Seat { get; set; }
 
 
         //millisele üritusele
-        public int EventId { get; set; }
+        public Guid EventId { get; set; }
         public Event Event { get; set; }
 
 

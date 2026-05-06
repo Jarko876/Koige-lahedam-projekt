@@ -1,0 +1,33 @@
+﻿using Abc.Aids;
+using Microsoft.EntityFrameworkCore;
+
+namespace Abc.Infra;
+
+public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20)
+{
+    public async Task Seed()
+    {
+        await db.Database.MigrateAsync();
+
+        await seedTable(db.Seats);
+            //nameof(Seat.Timestamp)]);
+
+    }
+
+    private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class
+    {
+        if (set.Any()) return;
+        var items = new List<T>();
+        for (var i = 1; i <= recCnt; i++)
+        {
+            var item = (T)GetRandom.Object(typeof(T), exclude);
+            items.Add(item);
+            if (items.Count % 100 != 0) continue;
+            await set.AddRangeAsync(items);
+            await db.SaveChangesAsync();
+            items = [];
+        }
+        await set.AddRangeAsync(items);
+        await db.SaveChangesAsync();
+    }
+}
