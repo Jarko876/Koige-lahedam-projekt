@@ -7,7 +7,6 @@
 	  <AssemblyName>Abc.Data</AssemblyName>
 	  <RootNamespace>Abc.Data</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Aids\Aids.csproj" />
   </ItemGroup>
