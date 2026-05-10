@@ -1,6 +1,6 @@
 ﻿@page "/seats"
-@rendermode InteractiveServer
 @attribute [ExcludeFromInteractiveRouting]
+@using Abc.Shared.Pages
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using Abc.Data
 @using Abc.Infra
@@ -12,7 +12,7 @@
              PageTitleText="Seats"
              EntityTitle="Seats"
              Repo="repo"
-             BasePath="seats">
+             BasePath="/seats">
 </MyIndexPage>
 
 

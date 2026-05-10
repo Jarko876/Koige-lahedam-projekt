@@ -1,5 +1,4 @@
-﻿@foreach (var property in Entity.GetType().GetProperties())
-{
+﻿@foreach (var property in Entity?.GetType().GetProperties() ?? []) {
 	<MyPropertyViewer Lable="@property.Name" Value="@property.GetValue(Entity)?.ToString()"/>
 }
 

@@ -1,0 +1,19 @@
+﻿@page "/events/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details Event" Entity="item" EntityTitle="Event"
+               EntityId="item?.Id" BasePath="/events" />
+
+@code {
+    private Event item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}

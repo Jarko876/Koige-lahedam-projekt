@@ -3,23 +3,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra;
 
-public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20)
-{
-    public async Task Seed()
-    {
+public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
+    public async Task Seed() {
         await db.Database.MigrateAsync();
 
         await seedTable(db.Seats);
-            //nameof(Seat.Timestamp)]);
+        //nameof(Seat.Timestamp)]);
 
+        await seedTable(db.Events);
     }
 
-    private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class
-    {
+    private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class {
         if (set.Any()) return;
         var items = new List<T>();
-        for (var i = 1; i <= recCnt; i++)
-        {
+        for (var i = 0; i <= recCnt; i++) {
             var item = (T)GetRandom.Object(typeof(T), exclude);
             items.Add(item);
             if (items.Count % 100 != 0) continue;

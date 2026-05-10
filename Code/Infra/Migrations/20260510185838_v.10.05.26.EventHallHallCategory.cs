@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Abc.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class v100526EventHallHallCategory : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,7 +51,7 @@ namespace Abc.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -60,11 +60,13 @@ namespace Abc.Infra.Migrations
                     EventType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HallType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     durationMinutes = table.Column<int>(type: "int", nullable: false),
+                    ValidFrom = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +216,7 @@ namespace Abc.Infra.Migrations
                     Number = table.Column<int>(type: "int", nullable: false),
                     Row = table.Column<int>(type: "int", nullable: false),
                     HallId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SeatCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SeatCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -226,8 +228,7 @@ namespace Abc.Infra.Migrations
                         name: "FK_Seats_SeatCategories_SeatCategoryId",
                         column: x => x.SeatCategoryId,
                         principalTable: "SeatCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -244,9 +245,9 @@ namespace Abc.Infra.Migrations
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_Event_EventId",
+                        name: "FK_Tickets_Events_EventId",
                         column: x => x.EventId,
-                        principalTable: "Event",
+                        principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -348,7 +349,7 @@ namespace Abc.Infra.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Event");
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Seats");

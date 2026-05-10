@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260506085712_Initial")]
-    partial class Initial
+    [Migration("20260510185838_v.10.05.26.EventHallHallCategory")]
+    partial class v100526EventHallHallCategory
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,12 +46,18 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("ValidFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ValidTo")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("durationMinutes")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Event");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Abc.Data.Seat", b =>
@@ -78,7 +84,7 @@ namespace Abc.Infra.Migrations
                     b.Property<int>("Row")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("SeatCategoryId")
+                    b.Property<Guid?>("SeatCategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -360,9 +366,7 @@ namespace Abc.Infra.Migrations
                 {
                     b.HasOne("Abc.Data.SeatCategory", "SeatCategory")
                         .WithMany()
-                        .HasForeignKey("SeatCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SeatCategoryId");
 
                     b.Navigation("SeatCategory");
                 });

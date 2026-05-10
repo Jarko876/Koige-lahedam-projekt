@@ -1,4 +1,5 @@
-﻿<div class="d-flex align-items-center gap-2">
+﻿@using Abc.Infra
+<div class="d-flex align-items-center gap-2">
     @if (isFirstPage){  
     <span>First</span>
      <span>Prev</span>
@@ -7,27 +8,22 @@
         <a href="@prevHref">Prev</a>
     }
 
-    <span>Page @Page / @totalPages() </span>
+    <span>Page @pageNo / @totalPages() </span>
 
     @if (isLastPage) {
         <span>Next</span>
         <span>Last</span>
-    } else
-    {
+    } else {
         <a href="@nextHref">Next</a>
         <a href="@lastHref">Last</a>
     }
     
     <span>Total: @TotalCount Rows: </span>
-    @foreach (var s in new[] { 6, 15, 25, 50 })
-    {
-        if (s == PageSize)
-        {
-            <span>@s</span>
-        }
-        else
-        {
-            <a href="@sizeHref(s)">@s</a>
+    @foreach (var size in Query.PageSizes) {
+        if (size == pageSize) {
+            <span>@size</span>
+        } else {
+            <a href="@sizeHref(size)">@size</a>
         }
     }
 
@@ -35,20 +31,23 @@
 
 @code {
     [Parameter] public string CurrentUri { get; set; }
-    [Parameter] public int Page { get; set; }
-    [Parameter] public int PageSize { get; set; }
+    [Parameter] public Query Query { get; set; }
     [Parameter] public int TotalCount { get; set; }
+    private string baseUri => (CurrentUri ?? string.Empty).Split('?', 2)[0];
+    private int pageNo => Query?.Page ?? 1;
+    private int pageSize => Query?.PageSize ?? 1;
     private int totalPages() {
-        if (PageSize <= 0) return TotalCount;
-        var p = TotalCount / PageSize;
-        if (TotalCount % PageSize > 0) p++;
+        if (pageSize <= 0) return TotalCount;
+        var p = TotalCount / pageSize;
+        if (TotalCount % pageSize > 0) p++;
         return p;
     }
-    private bool isFirstPage => Page == 1;
-    private bool isLastPage => Page == totalPages();
-    private string firstHref => $"{CurrentUri}?Page=1&PageSize={PageSize}";
-    private string prevHref => $"{CurrentUri}?Page={Page - 1}&PageSize={PageSize}";
-    private string nextHref => $"{CurrentUri}?Page={Page + 1}&PageSize={PageSize}";
-    private string lastHref => $"{CurrentUri}?Page={totalPages()}&PageSize={PageSize}";
-    private string sizeHref(int s) => $"{CurrentUri}?Page=1&PageSize={s}";
+
+    private bool isFirstPage => pageNo == 1;
+    private bool isLastPage => pageNo == totalPages();
+    private string firstHref => Query.Href(baseUri, 1, pageSize);
+    private string prevHref => Query.Href(baseUri, pageNo - 1, pageSize);
+    private string nextHref => Query.Href(baseUri, pageNo + 1, pageSize);
+    private string lastHref => Query.Href(baseUri, totalPages(), pageSize);
+    private string sizeHref(int s) => Query.Href(baseUri, 1, s);
 }

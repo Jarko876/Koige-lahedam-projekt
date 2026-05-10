@@ -42,7 +42,9 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
 builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
+builder.Services.AddScoped<IEventsRepo, EventsRepo>();
 
 var app = builder.Build();
 

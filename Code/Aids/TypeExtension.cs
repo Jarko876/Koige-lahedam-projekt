@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Abc.Aids
 {
     public static class TypeExtension
     {
         public static bool IsBool(this Type type)
         {
-            return toUnderlying(type) == typeof(bool);
+            return toUnderLying(type) == typeof(bool);
         }
 
-        private static Type toUnderlying(Type type)
+        private static Type toUnderLying(Type type)
         {
             if (type is null) return null;
             return Nullable.GetUnderlyingType(type) ?? type;
         }
 
-        public static bool IsDate(this Type type)
-        {
-            return toUnderlying(type) == typeof(DateTime) || toUnderlying(type) == typeof(DateOnly);
+        public static bool IsDate(this Type type) {
+            type = toUnderLying(type);
+            return type == typeof(DateTime) || type == typeof(DateOnly);
         }
 
         public static bool IsString(this Type type)
@@ -30,7 +27,7 @@ namespace Abc.Aids
 
         public static bool IsNumeric(this Type type)
         {
-            type = toUnderlying(type);
+            type = toUnderLying(type);
 
             return type == typeof(byte) || type == typeof(sbyte) ||
                    type == typeof(short) || type == typeof(ushort) ||
