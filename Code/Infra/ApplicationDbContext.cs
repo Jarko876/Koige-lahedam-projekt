@@ -8,6 +8,8 @@ namespace Abc.Infra {
         public DbSet<SeatCategory> SeatCategories { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Event> Events { get; set; } = default!;
+        public DbSet<Hall> Halls { get; set; } = default!;
+        public DbSet<HallCategory> HallCategories { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder modelBuilder){
             base.OnModelCreating(modelBuilder);
 

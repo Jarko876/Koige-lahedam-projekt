@@ -1,0 +1,13 @@
+﻿@page "/hallcategories"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IHallCategoriesRepo repo
+
+<MyIndexPage TItem="HallCategory" PageTitleText="Hall categories"
+             EntityTitle="Hall category" BasePath="/hallcategories" Repo="repo" />
+
+@code {
+}

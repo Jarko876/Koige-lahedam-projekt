@@ -45,6 +45,8 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
 builder.Services.AddScoped<IEventsRepo, EventsRepo>();
+builder.Services.AddScoped<IHallsRepo, HallsRepo>();
+builder.Services.AddScoped<IHallCategoriesRepo, HallCategoriesRepo>();
 
 var app = builder.Build();
 

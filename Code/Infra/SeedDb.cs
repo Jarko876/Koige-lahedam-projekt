@@ -11,6 +11,10 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
         //nameof(Seat.Timestamp)]);
 
         await seedTable(db.Events);
+
+        await seedTable(db.Halls);
+
+        await seedTable(db.HallCategories);
     }
 
     private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class {

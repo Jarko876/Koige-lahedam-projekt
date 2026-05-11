@@ -1,0 +1,23 @@
+﻿@page "/hallcategories/edit"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IHallCategoriesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyEditPage PageTitleText="Edit hall category" EntityTitle="@item?.Name" Entity="item"
+            EntityId="@Id" BasePath="/hallcategories" OnValidSubmit="update" />
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    [SupplyParameterFromForm(Name = nameof(HallCategory))] private HallCategory item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task update() {
+        await repo.UpdateAsync(item!);
+        NavigationManager.NavigateTo("/hallcategories");
+    }
+}

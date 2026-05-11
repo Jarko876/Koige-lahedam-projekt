@@ -18,7 +18,7 @@
 
         <EditForm method="post" Model="Entity" OnValidSubmit="HandleValidSubmit" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(Entity is null)">Delete</button> |
-            <a href=" ">Back to List</a>
+            <a href="@BasePath">Back to List</a>
         </EditForm>
     }
 </div>
