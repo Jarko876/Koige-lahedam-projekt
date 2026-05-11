@@ -32,9 +32,9 @@
     }
 }
 
-@* @if (Others.Any()) {
+@if (Others.Any()) {
     <MyQuickGrid Entities="@Others" BasePath="@BasePath" Query="@query" ShowHeader="@false" />
-} *@
+}
 <MyTablePageNav Query="@query" TotalCount="@totalCount" CurrentUri="@nav.Uri" />
 
 @code {

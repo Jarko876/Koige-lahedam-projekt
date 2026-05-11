@@ -1,4 +1,5 @@
 ﻿using Abc.Aids;
+using Abc.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra;
@@ -12,9 +13,12 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
 
         await seedTable(db.Events);
 
-        await seedTable(db.Halls);
+        await seedTable(db.Halls, [
+            nameof(Hall.HallCategoryId),
+            nameof(Hall.HallCategory)]);
 
-        await seedTable(db.HallCategories);
+        await seedTable(db.HallCategories, [
+            nameof(HallCategory.Halls)]);
     }
 
     private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class {

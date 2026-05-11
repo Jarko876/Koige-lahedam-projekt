@@ -1,4 +1,5 @@
 ﻿using Abc.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra;
 
@@ -9,5 +10,8 @@ public class EventsRepo(ApplicationDbContext c = null)
 public class HallsRepo(ApplicationDbContext c = null)
     : EfBaseRepo<ApplicationDbContext, Hall>(c), IHallsRepo { }
 public class HallCategoriesRepo(ApplicationDbContext c = null)
-    : EfBaseRepo<ApplicationDbContext, HallCategory>(c), IHallCategoriesRepo { }
+    : EfBaseRepo<ApplicationDbContext, HallCategory>(c), IHallCategoriesRepo {
+    protected override IQueryable<HallCategory> Query() => db.HallCategories
+        .Include(x => x.Halls);
+}
 
