@@ -1,0 +1,31 @@
+﻿@page "/genres/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Infra
+@using Microsoft.EntityFrameworkCore
+@using Abc.Data
+@inject IGenresRepo repo
+@inject IDbContextFactory<Abc.Infra.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details Genre"
+               EntityTitle="Genre"
+               Entity="genre"
+               EntityId="genre?.Id"
+               BasePath="/genres" />
+
+@code {
+    private Genre genre;
+
+    [SupplyParameterFromQuery]
+    private Guid Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        genre = await repo.GetAsync(Id);
+
+        if (genre is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+}

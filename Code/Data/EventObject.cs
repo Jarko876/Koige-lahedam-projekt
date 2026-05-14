@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Abc.Data.Common;
 
 namespace Abc.Data
 {
@@ -18,7 +19,7 @@ namespace Abc.Data
         R,
         NC17
     }
-    public class EventObject
+    public class EventObject : BaseEntity
     {
         public EventType Type { get; set; }
         public AgeRating Rating { get; set; }

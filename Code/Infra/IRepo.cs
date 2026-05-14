@@ -15,9 +15,11 @@ namespace Abc.Infra
 
     }
 
-    public interface ISeatsRepo: IRepo<Seat>
-    { 
+    public interface ISeatsRepo : IRepo<Seat>
+    {
     }
-    
 
+    public interface IGenresRepo : IRepo<Genre>
+    {
+    }
 }

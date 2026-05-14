@@ -43,6 +43,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
+builder.Services.AddScoped<IGenresRepo, GenreRepo>();
 
 var app = builder.Build();
 
