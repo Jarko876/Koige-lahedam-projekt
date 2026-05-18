@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260513145253_v13.05.2026")]
-    partial class v13052026
+    [Migration("20260517203504_Init-GenresProbleemid")]
+    partial class InitGenresProbleemid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
