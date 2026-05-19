@@ -1,0 +1,23 @@
+﻿@page "/halls/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IHallsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDeletePage PageTitleText="Delete hall" EntityTitle="Hall" 
+              Entity="item" BasePath="/halls" OnValidSubmit="delete" />
+
+@code {
+    private Hall item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task delete() {
+        await repo.DeleteAsync(Id);
+        NavigationManager.NavigateTo("/halls");
+    }
+}

@@ -1,6 +1,5 @@
 using Abc.Soft.Yritus_haldur.Components.Account.Pages;
 using Abc.Soft.Yritus_haldur.Components.Account.Pages.Manage;
-using Abc.Soft.Yritus_haldur.Data;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using System.Security.Claims;
 using System.Text.Json;
+using Abc.Infra;
 
 namespace Microsoft.AspNetCore.Routing
 {

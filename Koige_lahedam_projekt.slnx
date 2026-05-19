@@ -1,14 +1,11 @@
 <Solution>
   <Folder Name="/Code/">
-    <File Path="TextFile1.txt" />
     <Project Path="Code/Aids/Aids.csproj" />
     <Project Path="Code/Data/Data.csproj" />
     <Project Path="Code/Domain/Domain.csproj" />
     <Project Path="Code/Infra/Infra.csproj" />
     <Project Path="Code/Jobs/Jobs.csproj" />
-    <Project Path="Code/Shared/Shared.csproj">
-      <Build Solution="Debug|*" Project="false" />
-    </Project>
+    <Project Path="Code/Shared/Shared.csproj" />
   </Folder>
   <Folder Name="/Soft/" />
   <Folder Name="/Soft/Yritus_haldur/">
