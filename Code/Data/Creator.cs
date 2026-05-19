@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Abc.Data
 {
-    internal class Creator
+    public class Creator
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

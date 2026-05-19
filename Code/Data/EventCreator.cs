@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Abc.Data
 {
-    internal class EventCreator
+    public class EventCreator
     {
         public int EventId { get; set; }
 

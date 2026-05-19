@@ -12,6 +12,8 @@ namespace Abc.Infra {
         public DbSet<Event> Events { get; set; } = default!;
         public DbSet<Hall> Halls { get; set; } = default!;
         public DbSet<HallCategory> HallCategories { get; set; } = default!;
+        public DbSet<Creator> Creators { get; set; } = default!;
+        public DbSet<Feedback> Feedbacks { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
