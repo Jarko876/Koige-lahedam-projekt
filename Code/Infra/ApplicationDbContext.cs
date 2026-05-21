@@ -1,6 +1,7 @@
 using Abc.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Abc.Infra {
     public class ApplicationDbContext : DbContext {
@@ -12,6 +13,10 @@ namespace Abc.Infra {
         public DbSet<Event> Events { get; set; } = default!;
         public DbSet<Hall> Halls { get; set; } = default!;
         public DbSet<HallCategory> HallCategories { get; set; } = default!;
+        public DbSet<Person> Persons { get; set; } = default!;
+        public DbSet<Role> Roles { get; set; } = default!;
+        public DbSet<UserRole> UserRoles { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
