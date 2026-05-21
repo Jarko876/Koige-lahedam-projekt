@@ -1,0 +1,22 @@
+﻿@page "/roles/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IRolesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyCreatePage Entity="item" EntityTitle="Role" BasePath="/roles"
+              OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(Role))] private Role item { get; set; } = default!;
+
+    protected override void OnInitialized() => item ??= new();
+
+    private async Task add()
+    {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/roles");
+    }
+}
