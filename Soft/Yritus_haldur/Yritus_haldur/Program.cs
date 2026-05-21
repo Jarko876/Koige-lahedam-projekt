@@ -51,6 +51,8 @@ builder.Services.AddScoped<IPersonsRepo, PersonsRepo>();
 builder.Services.AddScoped<IRolesRepo, RolesRepo>();
 builder.Services.AddScoped<IUserRolesRepo, UserRolesRepo>();
     
+builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
+builder.Services.AddScoped<ISeatCategoriesRepo, SeatCategoriesRepo>();
 
 var app = builder.Build();
 

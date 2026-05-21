@@ -1,11 +1,10 @@
 ﻿using Abc.Data.Common;
-using System.Reflection.Metadata;
 
 //vastutab Allan
 
 namespace Abc.Data
 {
-    public class Ticket : BaseEntity
+    public class Ticket : NamedEntity
     {
         //kes ostis pileti
         public int PersonId { get; set; }
@@ -14,12 +13,12 @@ namespace Abc.Data
         //public User User { get; set; } - pole veel klassi tehtud, hiljem tagasi panna.
 
         //millisele kohale
-        public Guid SeatId { get; set; }
+        public Guid? SeatId { get; set; }
         public Seat Seat { get; set; }
 
 
         //millisele üritusele
-        public Guid EventId { get; set; }
+        public Guid? EventId { get; set; }
         public Event Event { get; set; }
 
 

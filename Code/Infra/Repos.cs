@@ -31,3 +31,10 @@ public class HallCategoriesRepo(ApplicationDbContext c = null)
 
 }
 
+public class TicketsRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, Ticket>(c), ITicketsRepo{ }
+public class SeatCategoriesRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, SeatCategory>(c), ISeatCategoriesRepo
+{ 
+
+}

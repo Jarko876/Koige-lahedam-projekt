@@ -1,0 +1,21 @@
+﻿@page "/tickets"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Abc.Data
+@using Abc.Infra
+
+@inject NavigationManager NavigationManager
+@inject ITicketsRepo repo
+
+<MyIndexPage TItem="Ticket"
+             PageTitleText="Tickets"
+             EntityTitle="Tickets"
+             Repo="repo"
+             BasePath="/tickets">
+</MyIndexPage>
+
+
+@code {
+  
+}

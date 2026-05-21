@@ -1,0 +1,19 @@
+﻿@page "/tickets/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject ITicketsRepo repo
+
+
+<MyCreatePage Entity="item" EntityTitle="Ticket" BasePath="/tickets" OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(Ticket))] private Ticket item { get; set; } = default!;
+    protected override void OnInitialized() => item ??= new();
+    private async Task add() {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/tickets");
+    }
+}

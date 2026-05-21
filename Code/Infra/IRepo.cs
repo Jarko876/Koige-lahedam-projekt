@@ -18,4 +18,6 @@ namespace Abc.Infra {
     public interface IRolesRepo : IRepo<Role> { }
     public interface IUserRolesRepo : IRepo<UserRole> { }
 
+    public interface ITicketsRepo : IRepo<Ticket> { }
+    public interface ISeatCategoriesRepo : IRepo<SeatCategory> { }
 }
