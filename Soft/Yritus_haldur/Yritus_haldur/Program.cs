@@ -46,6 +46,8 @@ builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
 builder.Services.AddScoped<IEventsRepo, EventsRepo>();
 builder.Services.AddScoped<IHallsRepo, HallsRepo>();
 builder.Services.AddScoped<IHallCategoriesRepo, HallCategoriesRepo>();
+builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
+builder.Services.AddScoped<ISeatCategoriesRepo, SeatCategoriesRepo>();
 
 var app = builder.Build();
 

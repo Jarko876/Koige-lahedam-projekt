@@ -3,6 +3,7 @@ using System;
 using Abc.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260521075647_v.21.05.26_AllaniCRUDid2")]
+    partial class v210526_AllaniCRUDid2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -73,9 +76,6 @@ namespace Abc.Infra.Migrations
                     b.Property<Guid?>("HallCategoryId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("HallCategoryId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -88,8 +88,6 @@ namespace Abc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("HallCategoryId");
-
-                    b.HasIndex("HallCategoryId1");
 
                     b.ToTable("Halls");
                 });
@@ -126,7 +124,7 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("HallId")
+                    b.Property<Guid>("HallId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -180,7 +178,7 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EventId")
+                    b.Property<Guid>("EventId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("FinalPrice")
@@ -193,7 +191,7 @@ namespace Abc.Infra.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid?>("SeatId")
+                    b.Property<Guid>("SeatId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -208,12 +206,8 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.Hall", b =>
                 {
                     b.HasOne("Abc.Data.HallCategory", "HallCategory")
-                        .WithMany()
-                        .HasForeignKey("HallCategoryId");
-
-                    b.HasOne("Abc.Data.HallCategory", null)
                         .WithMany("Halls")
-                        .HasForeignKey("HallCategoryId1");
+                        .HasForeignKey("HallCategoryId");
 
                     b.Navigation("HallCategory");
                 });
@@ -222,8 +216,7 @@ namespace Abc.Infra.Migrations
                 {
                     b.HasOne("Abc.Data.SeatCategory", "SeatCategory")
                         .WithMany()
-                        .HasForeignKey("SeatCategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("SeatCategoryId");
 
                     b.Navigation("SeatCategory");
                 });
@@ -232,11 +225,15 @@ namespace Abc.Infra.Migrations
                 {
                     b.HasOne("Abc.Data.Event", "Event")
                         .WithMany()
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Abc.Data.Seat", "Seat")
                         .WithMany()
-                        .HasForeignKey("SeatId");
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Event");
 
