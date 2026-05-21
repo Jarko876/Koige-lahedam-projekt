@@ -3,7 +3,7 @@
   <Class Name="Abc.Data.EventCreator">
     <Position X="12" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAgAAAAAAACAAAAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
       <FileName>EventCreator.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -15,25 +15,25 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Abc.Data.Event">
-    <Position X="8.75" Y="4.75" Width="1.5" />
+    <Position X="9.25" Y="4.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAABAAAAAACAAAQEAAQAACAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAQAAABAAAAAACAAAQEAAQAACAAACAAAAAAAAA=</HashCode>
       <FileName>Event.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="Abc.Data.EventGenre">
-    <Position X="8.75" Y="8.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>EventGenre.cs</FileName>
-    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="EventObjects" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Abc.Data.EventObject">
-    <Position X="6.25" Y="3.5" Width="1.5" />
+    <Position X="6.25" Y="3.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAoAAQAAAAAAAAAgAAAAAEAAQAAAAAAAAA=</HashCode>
+      <HashCode>BAAAAAAgICAoAAQAAAIAAAAAggAAAAEAAQAAAAAAAAA=</HashCode>
       <FileName>EventObject.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Hall" />
+      <Property Name="Event" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="Abc.Data.Genre">
     <Position X="6.25" Y="8.5" Width="1.5" />
@@ -44,16 +44,24 @@
   </Class>
   <Class Name="Abc.Data.Hall">
     <Position X="6" Y="0.75" Width="1.5" />
+    <AssociationLine Name="EventObjects" Type="Abc.Data.EventObject">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.911" Y="0.331" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAgAAAAAACAAEAAAAEABA=</HashCode>
+      <HashCode>AAAAAAAQAAAAAAAIAAAAAAAAgAAAAAACAAEAAAAEABA=</HashCode>
       <FileName>Hall.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="HallCategory" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="EventObjects" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Abc.Data.HallCategory">
-    <Position X="8.5" Y="1" Width="1.5" />
+    <Position X="8.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>HallCategory.cs</FileName>
@@ -72,14 +80,14 @@
   <Class Name="Abc.Data.Person">
     <Position X="3" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAACAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAg=</HashCode>
+      <HashCode>AAAAAEAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
       <FileName>Person.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Abc.Data.Role">
     <Position X="0.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Role.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -91,7 +99,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Abc.Data.SeatCategory">
-    <Position X="6.25" Y="6" Width="1.5" />
+    <Position X="6.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SeatGategory.cs</FileName>

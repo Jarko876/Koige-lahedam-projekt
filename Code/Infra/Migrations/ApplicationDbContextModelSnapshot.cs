@@ -116,6 +116,12 @@ namespace Abc.Infra.Migrations
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("HallId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -133,6 +139,10 @@ namespace Abc.Infra.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("HallId");
 
                     b.ToTable("EventObjects");
                 });
@@ -233,9 +243,6 @@ namespace Abc.Infra.Migrations
                     b.Property<Guid?>("HallCategoryId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("HallCategoryId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -248,8 +255,6 @@ namespace Abc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("HallCategoryId");
-
-                    b.HasIndex("HallCategoryId1");
 
                     b.ToTable("Halls");
                 });
@@ -438,6 +443,25 @@ namespace Abc.Infra.Migrations
                     b.Navigation("Creator");
                 });
 
+            modelBuilder.Entity("Abc.Data.EventObject", b =>
+                {
+                    b.HasOne("Abc.Data.Event", "Event")
+                        .WithMany("EventObjects")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Abc.Data.Hall", "Hall")
+                        .WithMany("EventObjects")
+                        .HasForeignKey("HallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Hall");
+                });
+
             modelBuilder.Entity("Abc.Data.EventObjectGenre", b =>
                 {
                     b.HasOne("Abc.Data.EventObject", "EventObject")
@@ -463,12 +487,8 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.Hall", b =>
                 {
                     b.HasOne("Abc.Data.HallCategory", "HallCategory")
-                        .WithMany()
-                        .HasForeignKey("HallCategoryId");
-
-                    b.HasOne("Abc.Data.HallCategory", null)
                         .WithMany("Halls")
-                        .HasForeignKey("HallCategoryId1");
+                        .HasForeignKey("HallCategoryId");
 
                     b.Navigation("HallCategory");
                 });
@@ -518,11 +538,21 @@ namespace Abc.Infra.Migrations
                     b.Navigation("EventCreators");
                 });
 
+            modelBuilder.Entity("Abc.Data.Event", b =>
+                {
+                    b.Navigation("EventObjects");
+                });
+
             modelBuilder.Entity("Abc.Data.EventObject", b =>
                 {
                     b.Navigation("EventObjectGenres");
 
                     b.Navigation("Genres");
+                });
+
+            modelBuilder.Entity("Abc.Data.Hall", b =>
+                {
+                    b.Navigation("EventObjects");
                 });
 
             modelBuilder.Entity("Abc.Data.HallCategory", b =>

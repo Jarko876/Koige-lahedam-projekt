@@ -8,7 +8,7 @@ namespace Abc.Infra;
 public sealed class HallConfig : IEntityTypeConfiguration<Hall>{
     public void Configure(EntityTypeBuilder<Hall> builder) { 
         builder.HasOne(x => x.HallCategory)
-            .WithMany()
+            .WithMany(x => x.Halls)
             .HasForeignKey(x => x.HallCategoryId);
     }
 }
@@ -20,7 +20,11 @@ public sealed class SeatCategoryConfig : IEntityTypeConfiguration<SeatCategory> 
     public void Configure(EntityTypeBuilder<SeatCategory> builder) { }
 }
 public sealed class EventConfig : IEntityTypeConfiguration<Event> {
-    public void Configure(EntityTypeBuilder<Event> builder) { }
+    public void Configure(EntityTypeBuilder<Event> builder) {
+        //builder.HasMany(x => x.EventGenres)
+        //    .WithOne(x => x.Event)
+        //    .HasForeignKey(x => x.EventId);
+    }
 }
 public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
     public void Configure(EntityTypeBuilder<Seat> builder) {
@@ -72,17 +76,18 @@ public sealed class GenreConfig : IEntityTypeConfiguration<Genre> {
 
 public sealed class EventObjectConfig : IEntityTypeConfiguration<EventObject>
 {
-    public void Configure(EntityTypeBuilder<EventObject> builder)
-    {
-        builder.HasMany(x => x.EventObjectGenres)
-            .WithOne(x => x.EventObject)
-            .HasForeignKey(x => x.EventObjectId);
+    public void Configure(EntityTypeBuilder<EventObject> builder) {
+        builder.HasOne(x => x.Event)
+            .WithMany(x => x.EventObjects)
+            .HasForeignKey(x => x.EventId);
+        builder.HasOne(x => x.Hall)
+            .WithMany(x => x.EventObjects)
+            .HasForeignKey(x => x.HallId);
     }
 }
 public sealed class EventObjectGenreConfig : IEntityTypeConfiguration<EventObjectGenre>
 {
-    public void Configure(EntityTypeBuilder<EventObjectGenre> builder)
-    {
+    public void Configure(EntityTypeBuilder<EventObjectGenre> builder) {
         builder.HasOne(x => x.EventObject)
             .WithMany(x => x.EventObjectGenres)
             .HasForeignKey(x => x.EventObjectId);
