@@ -9,12 +9,27 @@ namespace Abc.Infra {
     : EfBaseRepo<ApplicationDbContext, Event> (c), IEventsRepo{ }
     public class HallsRepo(ApplicationDbContext c = null)
     : EfBaseRepo<ApplicationDbContext, Hall>(c), IHallsRepo { }
-    public class HallCategoriesRepo(ApplicationDbContext c = null)
-        : EfBaseRepo<ApplicationDbContext, HallCategory>(c), IHallCategoriesRepo
+public class HallCategoriesRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, HallCategory>(c), IHallCategoriesRepo {
+    protected override IQueryable<HallCategory> Query() => db.HallCategories
+        .Include(x => x.Halls);
+    public class PersonsRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, Person>(c), IPersonsRepo
+    { }
+
+    public class RolesRepo(ApplicationDbContext c = null)
+        : EfBaseRepo<ApplicationDbContext, Role>(c), IRolesRepo
+    { }
+
+    public class UserRolesRepo(ApplicationDbContext c = null)
+        : EfBaseRepo<ApplicationDbContext, UserRole>(c), IUserRolesRepo
     {
-        protected override IQueryable<HallCategory> Query() => db.HallCategories
-            .Include(x => x.Halls);
+        protected override IQueryable<UserRole> Query() => db.UserRoles
+            .Include(x => x.Person)
+            .Include(x => x.Role);
     }
+
+}
 
     public class GenreRepo(ApplicationDbContext c = null)
     : EfBaseRepo<ApplicationDbContext, Genre>(c), IGenresRepo  { }

@@ -1,0 +1,29 @@
+﻿@page "/seatcategories/edit"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject ISeatCategoriesRepo repo
+
+<MyEditPage 
+    PageTitleText="Edit Seat Category"
+            EntityTitle="@item?.Name"
+            Entity="item"
+            BasePath="/seatcategories"
+            EntityId="@Id"
+            OnValidSubmit="update" />
+
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    [SupplyParameterFromForm(Name = nameof(SeatCategory))] private SeatCategory item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound(); 
+    }
+    private async Task update() {
+        await repo.UpdateAsync(item);
+        NavigationManager.NavigateTo("/seatcategories");
+    }
+}

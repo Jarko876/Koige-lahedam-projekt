@@ -19,6 +19,12 @@ namespace Abc.Infra {
     public interface IEventsRepo: IRepo<Event> { }
     public interface IHallsRepo : IRepo<Hall> { }
     public interface IHallCategoriesRepo : IRepo<HallCategory> { }
+    public interface IPersonsRepo : IRepo<Person> { }
+    public interface IRolesRepo : IRepo<Role> { }
+    public interface IUserRolesRepo : IRepo<UserRole> { }
+
+    public interface ITicketsRepo : IRepo<Ticket> { }
+    public interface ISeatCategoriesRepo : IRepo<SeatCategory> { }
     public interface IEventObjectsRepo : IRepo<EventObject> { }
     public interface IEventObjectGenresRepo : IRepo<EventObjectGenre> { }
 }

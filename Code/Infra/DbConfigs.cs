@@ -26,7 +26,8 @@ public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
     public void Configure(EntityTypeBuilder<Seat> builder) {
         builder.HasOne(x => x.SeatCategory)
             .WithMany()
-            .HasForeignKey(x => x.SeatCategoryId);
+            .HasForeignKey(x => x.SeatCategoryId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
 public sealed class TicketConfig : IEntityTypeConfiguration<Ticket> {
@@ -34,6 +35,34 @@ public sealed class TicketConfig : IEntityTypeConfiguration<Ticket> {
         builder.Property(x => x.FinalPrice).HasPrecision(18, 2);
     }
 }
+public sealed class PersonConfig : IEntityTypeConfiguration<Person>
+{
+    public void Configure(EntityTypeBuilder<Person> builder)
+    {
+        builder.HasMany(x => x.UserRoles)
+            .WithOne(x => x.Person)
+            .HasForeignKey(x => x.PersonId);
+    }
+}
+
+public sealed class RoleConfig : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.HasMany(x => x.UserRoles)
+            .WithOne(x => x.Role)
+            .HasForeignKey(x => x.RoleId);
+    }
+}
+
+public sealed class UserRoleConfig : IEntityTypeConfiguration<UserRole>
+{
+    public void Configure(EntityTypeBuilder<UserRole> builder)
+    {
+        builder.HasIndex(x => new { x.PersonId, x.RoleId }).IsUnique();
+    }
+}
+
 
 public sealed class GenreConfig : IEntityTypeConfiguration<Genre> {
     public void Configure(EntityTypeBuilder<Genre> builder) { }

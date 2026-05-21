@@ -1,5 +1,6 @@
 using Abc.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Abc.Infra
 {
@@ -16,6 +17,11 @@ namespace Abc.Infra
         public DbSet<Event> Events { get; set; } = default!;
         public DbSet<Hall> Halls { get; set; } = default!;
         public DbSet<HallCategory> HallCategories { get; set; } = default!;
+        public DbSet<Person> Persons { get; set; } = default!;
+        public DbSet<Role> Roles { get; set; } = default!;
+        public DbSet<UserRole> UserRoles { get; set; } = default!;
+
+       
         public DbSet<EventObject> EventObjects { get; set; } = default!;
         public DbSet<EventObjectGenre> EventObjectGenres { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)
@@ -23,15 +29,6 @@ namespace Abc.Infra
             base.OnModelCreating(builder);
 
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
-            builder.Entity<Seat>()
-                .HasOne(s => s.SeatCategory)
-                .WithMany()
-                .HasForeignKey(s => s.SeatCategoryId);
-
-            builder.Entity<Ticket>()
-                .Property(p => p.FinalPrice)
-                .HasPrecision(10, 2);
         }
     }
 }
