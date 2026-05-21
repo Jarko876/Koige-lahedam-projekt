@@ -1,0 +1,22 @@
+﻿@page "/persons/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IPersonsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyCreatePage Entity="item" EntityTitle="Person" BasePath="/persons"
+              OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(Person))] private Person item { get; set; } = default!;
+
+    protected override void OnInitialized() => item ??= new();
+
+    private async Task add()
+    {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/persons");
+    }
+}

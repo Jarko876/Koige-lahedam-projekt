@@ -1,0 +1,21 @@
+﻿@page "/persons/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IPersonsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details person" Entity="item" EntityTitle="Person"
+               EntityId="item?.Id" BasePath="/persons" />
+
+@code {
+    private Person item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}

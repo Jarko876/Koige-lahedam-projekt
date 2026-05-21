@@ -3,6 +3,7 @@ using System;
 using Abc.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260521090355_v.21.05.26_Allan_DeleteBehaviour")]
+    partial class v210526_Allan_DeleteBehaviour
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -114,46 +117,6 @@ namespace Abc.Infra.Migrations
                     b.ToTable("HallCategories");
                 });
 
-            modelBuilder.Entity("Abc.Data.Person", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Persons");
-                });
-
-            modelBuilder.Entity("Abc.Data.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Details")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Abc.Data.Seat", b =>
                 {
                     b.Property<Guid>("Id")
@@ -245,28 +208,6 @@ namespace Abc.Infra.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("Abc.Data.UserRole", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("PersonId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("RoleId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("PersonId", "RoleId")
-                        .IsUnique();
-
-                    b.ToTable("UserRoles");
-                });
-
             modelBuilder.Entity("Abc.Data.Hall", b =>
                 {
                     b.HasOne("Abc.Data.HallCategory", "HallCategory")
@@ -305,34 +246,9 @@ namespace Abc.Infra.Migrations
                     b.Navigation("Seat");
                 });
 
-            modelBuilder.Entity("Abc.Data.UserRole", b =>
-                {
-                    b.HasOne("Abc.Data.Person", "Person")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("PersonId");
-
-                    b.HasOne("Abc.Data.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId");
-
-                    b.Navigation("Person");
-
-                    b.Navigation("Role");
-                });
-
             modelBuilder.Entity("Abc.Data.HallCategory", b =>
                 {
                     b.Navigation("Halls");
-                });
-
-            modelBuilder.Entity("Abc.Data.Person", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Abc.Data.Role", b =>
-                {
-                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

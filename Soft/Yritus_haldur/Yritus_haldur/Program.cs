@@ -1,9 +1,10 @@
+using Abc.Infra;
 using Abc.Soft.Yritus_haldur.Components;
 using Abc.Soft.Yritus_haldur.Components.Account;
-using Abc.Infra;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static Abc.Infra.HallCategoriesRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,12 @@ builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
 builder.Services.AddScoped<IEventsRepo, EventsRepo>();
 builder.Services.AddScoped<IHallsRepo, HallsRepo>();
 builder.Services.AddScoped<IHallCategoriesRepo, HallCategoriesRepo>();
+builder.Services.AddScoped<IPersonsRepo, PersonsRepo>();
+builder.Services.AddScoped<IRolesRepo, RolesRepo>();
+builder.Services.AddScoped<IUserRolesRepo, UserRolesRepo>();
+    
+builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
+builder.Services.AddScoped<ISeatCategoriesRepo, SeatCategoriesRepo>();
 
 var app = builder.Build();
 
