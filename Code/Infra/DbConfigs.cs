@@ -33,6 +33,34 @@ public sealed class TicketConfig : IEntityTypeConfiguration<Ticket> {
         builder.Property(x => x.FinalPrice).HasPrecision(18, 2);
     }
 }
+public sealed class PersonConfig : IEntityTypeConfiguration<Person>
+{
+    public void Configure(EntityTypeBuilder<Person> builder)
+    {
+        builder.HasMany(x => x.UserRoles)
+            .WithOne(x => x.Person)
+            .HasForeignKey(x => x.PersonId);
+    }
+}
+
+public sealed class RoleConfig : IEntityTypeConfiguration<Role>
+{
+    public void Configure(EntityTypeBuilder<Role> builder)
+    {
+        builder.HasMany(x => x.UserRoles)
+            .WithOne(x => x.Role)
+            .HasForeignKey(x => x.RoleId);
+    }
+}
+
+public sealed class UserRoleConfig : IEntityTypeConfiguration<UserRole>
+{
+    public void Configure(EntityTypeBuilder<UserRole> builder)
+    {
+        builder.HasIndex(x => new { x.PersonId, x.RoleId }).IsUnique();
+    }
+}
+
 //public sealed class CountryCurrencyConfig : IEntityTypeConfiguration<CountryCurrency>{
 //    public void Configure(EntityTypeBuilder<CountryCurrency> builder)
 //    {
