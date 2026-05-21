@@ -49,7 +49,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.EventObject", b =>
@@ -189,7 +189,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasIndex("HallCategoryId1");
 
-                    b.ToTable("Halls");
+                    b.ToTable("Halls", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.HallCategory", b =>
@@ -209,7 +209,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HallCategories");
+                    b.ToTable("HallCategories", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.Person", b =>
@@ -229,7 +229,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Persons", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.Role", b =>
@@ -249,7 +249,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.Seat", b =>
@@ -283,7 +283,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasIndex("SeatCategoryId");
 
-                    b.ToTable("Seats");
+                    b.ToTable("Seats", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.SeatCategory", b =>
@@ -303,7 +303,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SeatCategories");
+                    b.ToTable("SeatCategories", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.Ticket", b =>
@@ -340,7 +340,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasIndex("SeatId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.UserRole", b =>
@@ -362,7 +362,7 @@ namespace Abc.Infra.Migrations
                     b.HasIndex("PersonId", "RoleId")
                         .IsUnique();
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Abc.Data.EventObjectGenre", b =>
