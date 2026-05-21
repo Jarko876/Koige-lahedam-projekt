@@ -1,0 +1,19 @@
+﻿@page "/eventobjects/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventObjectsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyCreatePage Entity="item" EntityTitle="EventObject" BasePath="/eventobjects" 
+OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(EventObject))] private EventObject item { get; set; } = default!;
+    protected override void OnInitialized() => item ??= new();
+    private async Task add() {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/eventobjects");
+    }
+}

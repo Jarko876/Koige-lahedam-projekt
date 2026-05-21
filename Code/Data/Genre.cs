@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Abc.Data.Common;
 
 namespace Abc.Data
 {
@@ -17,7 +18,7 @@ namespace Abc.Data
         Animation,
         Documentary
     }
-    internal class Genre
+    public class Genre : NamedEntity
     {
         public GenreType Type { get; set; }
     }

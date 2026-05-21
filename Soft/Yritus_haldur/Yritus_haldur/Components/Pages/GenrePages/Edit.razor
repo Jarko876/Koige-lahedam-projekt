@@ -1,0 +1,42 @@
+﻿@page "/genres/edit"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject IGenresRepo repo
+
+<MyEditPage 
+    PageTitleText="Edit Genre"
+            EntityTitle="@genre?.Name"
+            Entity="genre"
+            BasePath="/genres"
+            EntityId="@Id"
+            OnValidSubmit="UpdateGenre" />
+
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    [SupplyParameterFromForm] private Genre? genre { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (repo is null) return;
+
+        genre ??= await repo.GetAsync(Id);
+
+        if (genre is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+
+    private async Task UpdateGenre()
+    {
+        if (genre is null) return;
+
+        await repo.UpdateAsync(genre);
+
+        NavigationManager.NavigateTo("/genres");
+    }
+}
