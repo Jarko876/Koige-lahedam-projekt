@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Abc.Data.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Abc.Data
 {
-    public class EventCreator
+    public class EventCreator : NamedEntity
     {
         public int EventId { get; set; }
 
