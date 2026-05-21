@@ -21,6 +21,9 @@ namespace Abc.Infra
         public DbSet<Role> Roles { get; set; } = default!;
         public DbSet<UserRole> UserRoles { get; set; } = default!;
 
+        public DbSet<Creator> Creators { get; set; } = default!;
+        public DbSet<Feedback> Feedbacks { get; set; } = default!;
+        protected override void OnModelCreating(ModelBuilder builder){
        
         public DbSet<EventObject> EventObjects { get; set; } = default!;
         public DbSet<EventObjectGenre> EventObjectGenres { get; set; } = default!;
