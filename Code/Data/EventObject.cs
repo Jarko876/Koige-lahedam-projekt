@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Abc.Data.Common;
 
 namespace Abc.Data
 {
@@ -18,7 +19,7 @@ namespace Abc.Data
         R,
         NC17
     }
-    public class EventObject
+    public class EventObject : NamedEntity
     {
         public EventType Type { get; set; }
         public AgeRating Rating { get; set; }
@@ -26,6 +27,8 @@ namespace Abc.Data
         [Range(1, 1000)] public int DurationMinutes { get; set; }
         [Required] public string Description { get; set; } = "";
         public DateTime ReleaseDate { get; set; }
+        public ICollection<EventObjectGenre> EventObjectGenres { get; set; } = [];
+        public ICollection<Genre> Genres => [.. EventObjectGenres.Select(c => c.Genre)];
 
     }
 }

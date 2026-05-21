@@ -1,0 +1,20 @@
+﻿@page "/genres/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject IGenresRepo repo
+
+
+<MyCreatePage Entity="genre" EntityTitle="Genre" BasePath="/genres" OnValidSubmit="AddGenre" />
+
+@code {
+    [SupplyParameterFromForm] private Genre genre { get; set; } = default!;
+    protected override void OnInitialized() => genre ??= new();
+    private async Task AddGenre()
+    {
+        await repo.CreateAsync(genre);
+        NavigationManager.NavigateTo("/genres");
+    }
+}

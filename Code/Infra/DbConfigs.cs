@@ -1,4 +1,5 @@
-﻿using Abc.Data;
+﻿using System.Diagnostics.Metrics;
+using Abc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -62,6 +63,30 @@ public sealed class UserRoleConfig : IEntityTypeConfiguration<UserRole>
     }
 }
 
+
+public sealed class GenreConfig : IEntityTypeConfiguration<Genre> {
+    public void Configure(EntityTypeBuilder<Genre> builder) { }
+}
+
+public sealed class EventObjectConfig : IEntityTypeConfiguration<EventObject>
+{
+    public void Configure(EntityTypeBuilder<EventObject> builder)
+    {
+        builder.HasMany(x => x.EventObjectGenres)
+            .WithOne(x => x.EventObject)
+            .HasForeignKey(x => x.EventObjectId);
+    }
+}
+public sealed class EventObjectGenreConfig : IEntityTypeConfiguration<EventObjectGenre>
+{
+    public void Configure(EntityTypeBuilder<EventObjectGenre> builder)
+    {
+        builder.HasOne(x => x.EventObject)
+            .WithMany(x => x.EventObjectGenres)
+            .HasForeignKey(x => x.EventObjectId);
+        builder.HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId);
+    }
+}
 //public sealed class CountryCurrencyConfig : IEntityTypeConfiguration<CountryCurrency>{
 //    public void Configure(EntityTypeBuilder<CountryCurrency> builder)
 //    {
