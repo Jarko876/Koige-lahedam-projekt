@@ -73,6 +73,17 @@ public sealed class PaymentConfig : IEntityTypeConfiguration<Payment>
     }
 }
 
+/*
+public sealed class CartConfig : IEntityTypeConfiguration<Cart>
+{
+    public void Configure(EntityTypeBuilder<Cart> builder)
+    {
+        builder.HasMany(x => x.Tickets)
+            .WithOne()  // Remove .WithOne(x => x.Cart) since Ticket doesn't have Cart property
+            .HasForeignKey(x => x.CartId);
+    }
+} */
+
 
 //public sealed class CountryCurrencyConfig : IEntityTypeConfiguration<CountryCurrency>{
 //    public void Configure(EntityTypeBuilder<CountryCurrency> builder)
