@@ -1,0 +1,22 @@
+﻿@page "/eventobjectgenres/edit"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventObjectGenresRepo repo
+@inject NavigationManager NavigationManager
+
+<MyEditPage PageTitleText="Edit Event Object Genre" EntityTitle="@item?.Name" Entity="item"
+    EntityId ="@Id" BasePath="/eventobjectgenres" OnValidSubmit="update" />
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    [SupplyParameterFromForm(Name = nameof(EventObjectGenre))] private EventObjectGenre item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task update() {
+        await repo.UpdateAsync(item!);
+        NavigationManager.NavigateTo("/eventobjectgenres");
+    }
+}

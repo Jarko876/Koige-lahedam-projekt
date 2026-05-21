@@ -2,40 +2,40 @@
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
-@using Abc.Shared.Components
+@using Abc.Shared.Pages
 @inject NavigationManager NavigationManager
 @inject ISeatsRepo repo
 
 <MyEditPage 
     PageTitleText="Edit Seat"
-            EntityTitle="@Seat?.Name"
-            Entity="Seat"
+            EntityTitle="@item?.Name"
+            Entity="item"
             BasePath="/seats"
             EntityId="@Id"
-            OnValidSubmit="UpdateSeat" />
+            OnValidSubmit="update" />
 
 
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    [SupplyParameterFromForm] private Seat? Seat { get; set; }
+    [SupplyParameterFromForm(Name = nameof(Event))] private Seat item { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         if (repo is null) return;
 
-        Seat ??= await repo.GetAsync(Id);
+        item ??= await repo.GetAsync(Id);
 
-        if (Seat is null)
+        if (item is null)
         {
             NavigationManager.NotFound();
         }
     }
 
-    private async Task UpdateSeat()
+    private async Task update()
     {
-        if (Seat is null) return;
+        if (item is null) return;
 
-        await repo.UpdateAsync(Seat);
+        await repo.UpdateAsync(item);
 
         NavigationManager.NavigateTo("/seats");
     }

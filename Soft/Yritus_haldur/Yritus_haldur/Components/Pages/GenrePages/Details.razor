@@ -1,10 +1,9 @@
 ﻿@page "/genres/details"
 @attribute [ExcludeFromInteractiveRouting]
-@using Abc.Infra
-@using Microsoft.EntityFrameworkCore
 @using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
 @inject IGenresRepo repo
-@inject IDbContextFactory<Abc.Infra.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 
 <MyDetailsPage PageTitleText="Details Genre"

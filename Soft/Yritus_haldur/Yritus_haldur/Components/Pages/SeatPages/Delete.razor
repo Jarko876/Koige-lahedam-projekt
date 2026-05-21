@@ -4,30 +4,23 @@
 @inject ISeatsRepo repo
 @using Abc.Data
 @using Abc.Infra;
-@using Abc.Shared.Components
+@using Abc.Shared.Pages
 
 <MyDeletePage PageTitleText="Delete Seat"
               EntityTitle="Seat"
-              Entity="seat"
-              EntityId="seat?.Id"
+              Entity="item"
               BasePath="/seats"
-              OnValidSubmit="DeleteSeat" />
+              OnValidSubmit="delete" />
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    private Seat? seat { get; set; }
+    private Seat item { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        seat ??= await repo.GetAsync(Id);
-        if (seat is null) NavigationManager.NotFound();
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
     }
-
-    private async Task DeleteSeat()
-    {
-        if (seat is null) return;
-
-        await repo.DeleteAsync(seat.Id);
+    private async Task delete() {
+        await repo.DeleteAsync(item.Id);
         NavigationManager.NavigateTo("/seats");
     }
-    
 }

@@ -1,5 +1,4 @@
-﻿@foreach (var p in Entity?.GetType().GetProperties() ?? [])
-{
+﻿@foreach (var p in Entity?.GetType().GetProperties() ?? []) {
 	<MyPropertyEditor Item="Entity" PropertyName="@p.Name" />
 }
 

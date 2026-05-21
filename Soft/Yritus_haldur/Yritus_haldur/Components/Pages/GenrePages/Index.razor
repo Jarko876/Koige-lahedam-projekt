@@ -1,9 +1,10 @@
 ﻿@page "/genres"
-@rendermode InteractiveServer
 @attribute [ExcludeFromInteractiveRouting]
-@using Microsoft.AspNetCore.Components.QuickGrid
 @using Abc.Data
 @using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IGenresRepo repo
 
 @inject NavigationManager NavigationManager
 @inject IGenresRepo repo

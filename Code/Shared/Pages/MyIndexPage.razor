@@ -1,5 +1,6 @@
 ﻿@using Abc.Data.Common
 @using Abc.Infra
+@using Abc.Shared.Components
 
 @typeparam TItem where TItem : BaseEntity
 
@@ -13,16 +14,12 @@
 </p>
 
 
-<MyEntitiesTable TEntity="TItem" 
-                Repo ="Repo" 
-                BasePath="@BasePath" />
+<MyEntitiesTable TEntity="TItem" Repo ="Repo" BasePath="@BasePath" />
 
 @code {
-
     [Parameter] public string BasePath { get; set; }
     [Parameter] public IRepo<TItem> Repo { get; set; }
     [Parameter] public string PageTitleText { get; set; } = "Create";
     [Parameter] public string EntityTitle { get; set; }
-
    }
   

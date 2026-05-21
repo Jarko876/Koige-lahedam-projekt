@@ -1,16 +1,14 @@
-﻿<PageTitle>@PageTitleText</PageTitle>
+﻿@using Abc.Shared.Components
+<PageTitle>@PageTitleText</PageTitle>
 
 <h1>Details</h1>
 
 <div>
     <h2>@EntityTitle</h2>
     <hr />
-    @if (Entity is null)
-    {
+    @if (Entity is null) {
         <p><em>Loading...</em></p>
-    }
-    else
-    {
+    } else {
         <MyEntityViewer Entity="Entity" />
         <div>
             <a href="@($"{BasePath}/edit?id={EntityId}")">Edit</a> |

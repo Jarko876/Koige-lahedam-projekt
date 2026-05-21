@@ -4,12 +4,12 @@
 @inject IGenresRepo repo
 @using Abc.Data
 @using Abc.Infra;
-@using Abc.Shared.Components
+@using Abc.Shared.Pages
 
 <MyDeletePage PageTitleText="Delete Genre"
               EntityTitle="Genre"
               Entity="genre"
-              EntityId="genre?.Id"
+        
               BasePath="/genres"
               OnValidSubmit="DeleteGenre" />
 @code {

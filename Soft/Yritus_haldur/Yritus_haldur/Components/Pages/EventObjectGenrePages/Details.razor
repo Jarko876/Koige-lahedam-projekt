@@ -1,0 +1,18 @@
+﻿@page "/eventobjectgenres/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventObjectGenresRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details Event Object Genre" Entity="item" EntityTitle="Event Object Genre"
+               EntityId="item?.Id" BasePath="/eventobjectgenres" />
+@code {
+    private EventObjectGenre item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}

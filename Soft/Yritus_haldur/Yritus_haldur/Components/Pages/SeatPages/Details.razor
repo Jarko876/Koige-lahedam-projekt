@@ -1,29 +1,25 @@
 ﻿@page "/seats/details"
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Infra
+@using Abc.Shared.Pages
 @using Microsoft.EntityFrameworkCore
 @using Abc.Data
 @inject ISeatsRepo repo
-@inject IDbContextFactory<Abc.Infra.ApplicationDbContext> DbFactory
 @inject NavigationManager NavigationManager
 
 <MyDetailsPage PageTitleText="Details Seats"
                EntityTitle="Seat"
-               Entity="seat"
-               EntityId="seat?.Id"
+               Entity="item"
+               EntityId="item?.Id"
                BasePath="/seats" />
 
 @code {
-    private Seat seat;
+    private Seat item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
 
-    [SupplyParameterFromQuery]
-    private Guid Id { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        seat = await repo.GetAsync(Id);
-
-        if (seat is null)
+        if (item is null)
         {
             NavigationManager.NotFound();
         }

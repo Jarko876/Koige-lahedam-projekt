@@ -1,4 +1,3 @@
-    
 using Abc.Soft.Yritus_haldur.Components;
 using Abc.Soft.Yritus_haldur.Components.Account;
 using Abc.Infra;
@@ -27,7 +26,7 @@ builder.Services.AddAuthentication(options =>
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlite(connectionString));
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -44,6 +43,12 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
 builder.Services.AddScoped<IGenresRepo, GenreRepo>();
+builder.Services.AddScoped<IEventsRepo, EventsRepo>();
+builder.Services.AddScoped<IHallsRepo, HallsRepo>();
+builder.Services.AddScoped<IHallCategoriesRepo, HallCategoriesRepo>();
+builder.Services.AddScoped<IEventObjectsRepo, EventObjectRepo>();
+builder.Services.AddScoped<IEventObjectGenresRepo, EventObjectGenreRepo>();
+
 
 var app = builder.Build();
 

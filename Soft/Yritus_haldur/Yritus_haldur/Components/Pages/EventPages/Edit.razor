@@ -1,0 +1,23 @@
+﻿@page "/events/edit"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyEditPage PageTitleText="Edit Event" EntityTitle="@item?.Name" Entity="item"
+    EntityId ="@Id" BasePath="/events" OnValidSubmit="update" />
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    [SupplyParameterFromForm(Name = nameof(Event))] private Event item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task update() {
+        await repo.UpdateAsync(item!);
+        NavigationManager.NavigateTo("/events");
+    }
+}

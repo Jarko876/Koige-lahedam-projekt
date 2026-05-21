@@ -2,19 +2,18 @@
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
-@using Abc.Shared.Components
+@using Abc.Shared.Pages
 @inject NavigationManager NavigationManager
 @inject ISeatsRepo repo
 
 
-<MyCreatePage Entity="seat" EntityTitle="Seat" BasePath="/seats" OnValidSubmit="AddSeat" />
+<MyCreatePage Entity="item" EntityTitle="Seat" BasePath="/seats" OnValidSubmit="add" />
 
 @code {
-    [SupplyParameterFromForm] private Seat seat { get; set; } = default!;
-    protected override void OnInitialized() => seat ??= new();
-    private async Task AddSeat()
-    {
-        await repo.CreateAsync(seat);
+    [SupplyParameterFromForm(Name = nameof(Seat))] private Seat item { get; set; } = default!;
+    protected override void OnInitialized() => item ??= new();
+    private async Task add() {
+        await repo.CreateAsync(item);
         NavigationManager.NavigateTo("/seats");
     }
 }

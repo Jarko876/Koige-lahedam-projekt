@@ -1,0 +1,19 @@
+﻿@page "/hallcategories/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IHallCategoriesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details hall category" Entity="item" EntityTitle="Hall category"
+               EntityId="item?.Id" BasePath="/hallcategories" />
+
+@code {
+    private HallCategory item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}
