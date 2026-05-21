@@ -10,6 +10,11 @@ namespace Abc.Infra {
         Task<TEntity> UpdateAsync(TEntity entity);
         Task DeleteAsync(Guid id);
     }
+
+
+    
+
+    public interface IGenresRepo : IRepo<Genre> { }
     public interface ISeatsRepo: IRepo<Seat>{  }
     public interface IEventsRepo: IRepo<Event> { }
     public interface IHallsRepo : IRepo<Hall> { }
@@ -20,4 +25,6 @@ namespace Abc.Infra {
 
     public interface ITicketsRepo : IRepo<Ticket> { }
     public interface ISeatCategoriesRepo : IRepo<SeatCategory> { }
+    public interface IEventObjectsRepo : IRepo<EventObject> { }
+    public interface IEventObjectGenresRepo : IRepo<EventObjectGenre> { }
 }

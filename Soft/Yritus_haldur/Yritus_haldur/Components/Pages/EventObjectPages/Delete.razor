@@ -1,0 +1,22 @@
+﻿@page "/eventobjects/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventObjectsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDeletePage PageTitleText="Delete EventObject" EntityTitle="EventObject" 
+    Entity="item" BasePath="/eventobjects" OnValidSubmit="delete" />    
+@code {
+    private EventObject item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task delete() {
+        await repo.DeleteAsync(Id);
+        NavigationManager.NavigateTo("/eventobjects");
+    }
+}

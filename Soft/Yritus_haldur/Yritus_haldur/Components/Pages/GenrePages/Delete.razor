@@ -1,0 +1,33 @@
+﻿@page "/genres/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@inject NavigationManager NavigationManager
+@inject IGenresRepo repo
+@using Abc.Data
+@using Abc.Infra;
+@using Abc.Shared.Pages
+
+<MyDeletePage PageTitleText="Delete Genre"
+              EntityTitle="Genre"
+              Entity="genre"
+        
+              BasePath="/genres"
+              OnValidSubmit="DeleteGenre" />
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    private Genre? genre { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        genre ??= await repo.GetAsync(Id);
+        if (genre is null) NavigationManager.NotFound();
+    }
+
+    private async Task DeleteGenre()
+    {
+        if (genre is null) return;
+
+        await repo.DeleteAsync(genre.Id);
+        NavigationManager.NavigateTo("/genres");
+    }
+    
+}

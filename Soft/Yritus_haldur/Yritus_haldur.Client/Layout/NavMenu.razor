@@ -13,8 +13,12 @@
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="nav flex-column">
+
         <MyNavLink href="" Match="NavLinkMatch.All" IconClass="home-icon" Text="Home"></MyNavLink>
+        <MyNavLink href="genres" IconClass="list-icon" Text="Genre"></MyNavLink>
         <MyNavLink href="events" IconClass="list-icon" Text="Events"></MyNavLink>
+        <MyNavLink href="eventobjects" IconClass="list-icon" Text="Event Object"></MyNavLink>
+        <MyNavLink href="eventobjectgenres" IconClass="list-icon" Text="Event Object Genres"></MyNavLink>
         <MyNavLink href="seats" IconClass="list-icon" Text="Seats"></MyNavLink>
         <MyNavLink href="seatcategories" IconClass="list-icon" Text="Seat Categories"></MyNavLink>
         <MyNavLink href="tickets" IconClass="list-icon" Text="Tickets"></MyNavLink>
@@ -27,6 +31,7 @@
 
         <MyNavLink href="counter" IconClass="counter-icon" Text="Counter"></MyNavLink>
         <MyNavLink href="weather" IconClass="list-icon" Text="Weather"></MyNavLink>
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="auth">
                 <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
