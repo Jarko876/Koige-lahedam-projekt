@@ -1,0 +1,27 @@
+﻿@page "/tickets/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.EntityFrameworkCore
+@using Abc.Data
+@inject IPaymentsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details Payment"
+               EntityTitle="Payment"
+               Entity="item"
+               EntityId="item?.Id"
+               BasePath="/payments" />
+
+@code {
+    private Payment item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+
+        if (item is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+}

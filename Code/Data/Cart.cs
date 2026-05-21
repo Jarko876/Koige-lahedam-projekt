@@ -4,7 +4,7 @@ using Abc.Data.Common;
 
 namespace Abc.Data;
 
-public class Cart : BaseEntity {
+public class Cart : NamedEntity {
     
     public int PersonId { get; set; }
     //public Person Person { get; set; } - hiljem lisada?

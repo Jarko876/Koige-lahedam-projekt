@@ -20,4 +20,6 @@ namespace Abc.Infra {
 
     public interface ITicketsRepo : IRepo<Ticket> { }
     public interface ISeatCategoriesRepo : IRepo<SeatCategory> { }
+    public interface IPaymentsRepo : IRepo<Payment> { }
+    public interface ICartsRepo : IRepo<Cart> { }   
 }

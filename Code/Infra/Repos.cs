@@ -38,3 +38,12 @@ public class SeatCategoriesRepo(ApplicationDbContext c = null)
 { 
 
 }
+
+public class PaymentsRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, Payment>(c), IPaymentsRepo
+{ }
+
+public class CartsRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo
+{ }
+

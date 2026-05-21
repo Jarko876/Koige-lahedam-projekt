@@ -62,6 +62,18 @@ public sealed class UserRoleConfig : IEntityTypeConfiguration<UserRole>
     }
 }
 
+public sealed class PaymentConfig : IEntityTypeConfiguration<Payment>
+{
+    public void Configure(EntityTypeBuilder<Payment> builder)
+    {
+        builder.Property(x => x.Amount).HasPrecision(18, 2);
+        builder.HasOne(x => x.Cart)
+            .WithMany()
+            .HasForeignKey(x => x.CartId);
+    }
+}
+
+
 //public sealed class CountryCurrencyConfig : IEntityTypeConfiguration<CountryCurrency>{
 //    public void Configure(EntityTypeBuilder<CountryCurrency> builder)
 //    {

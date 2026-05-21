@@ -50,7 +50,7 @@ builder.Services.AddScoped<IHallCategoriesRepo, HallCategoriesRepo>();
 builder.Services.AddScoped<IPersonsRepo, PersonsRepo>();
 builder.Services.AddScoped<IRolesRepo, RolesRepo>();
 builder.Services.AddScoped<IUserRolesRepo, UserRolesRepo>();
-    
+builder.Services.AddScoped<IPaymentsRepo, PaymentsRepo>();
 builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
 builder.Services.AddScoped<ISeatCategoriesRepo, SeatCategoriesRepo>();
 

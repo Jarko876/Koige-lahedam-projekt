@@ -1,0 +1,25 @@
+﻿@page "/tickets/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@inject NavigationManager NavigationManager
+@inject IPaymentsRepo repo
+@using Abc.Data
+@using Abc.Infra;
+@using Abc.Shared.Pages
+
+<MyDeletePage PageTitleText="Delete Payment"
+              EntityTitle="Payment"
+              Entity="item"
+              BasePath="/payments"
+              OnValidSubmit="delete" />
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    private Payment item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task delete() {
+        await repo.DeleteAsync(item.Id);
+        NavigationManager.NavigateTo("/payments");
+    }
+}

@@ -1,0 +1,27 @@
+﻿@page "/tickets/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.EntityFrameworkCore
+@using Abc.Data
+@inject ICartsRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details Cart"
+               EntityTitle="Cart"
+               Entity="item"
+               EntityId="item?.Id"
+               BasePath="/carts" />
+
+@code {
+    private Cart item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+
+        if (item is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+}

@@ -5,7 +5,7 @@ using Abc.Data.Common;
 
 namespace Abc.Data;
 
-public class Payment : BaseEntity {
+public class Payment : NamedEntity {
     public Guid CartId { get; set; }
     public Cart Cart { get; set; }
     public decimal Amount { get; set; }

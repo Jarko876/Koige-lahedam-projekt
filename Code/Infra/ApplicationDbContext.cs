@@ -16,6 +16,8 @@ namespace Abc.Infra {
         public DbSet<Person> Persons { get; set; } = default!;
         public DbSet<Role> Roles { get; set; } = default!;
         public DbSet<UserRole> UserRoles { get; set; } = default!;
+        public DbSet<Payment> Payments { get; set; } = default!;
+        public DbSet<Cart> Carts { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder){
             base.OnModelCreating(builder);

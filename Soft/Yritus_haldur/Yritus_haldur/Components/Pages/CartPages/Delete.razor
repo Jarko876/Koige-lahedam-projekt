@@ -1,0 +1,25 @@
+﻿@page "/carts/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@inject NavigationManager NavigationManager
+@inject ICartsRepo repo
+@using Abc.Data
+@using Abc.Infra;
+@using Abc.Shared.Pages
+
+<MyDeletePage PageTitleText="Delete Cart"
+              EntityTitle="Cart"
+              Entity="item"
+              BasePath="/carts"
+              OnValidSubmit="delete" />
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    private Cart item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task delete() {
+        await repo.DeleteAsync(item.Id);
+        NavigationManager.NavigateTo("/carts");
+    }
+}
