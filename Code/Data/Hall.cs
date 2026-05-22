@@ -10,4 +10,5 @@ public sealed class Hall : NamedEntity  {
     public string Address { get; set; }
     [Select(typeof(HallCategory))]public Guid? HallCategoryId { get; set; }
     public HallCategory HallCategory { get; set; }
+    public ICollection<EventObject> EventObjects { get; set; } = [];
 }

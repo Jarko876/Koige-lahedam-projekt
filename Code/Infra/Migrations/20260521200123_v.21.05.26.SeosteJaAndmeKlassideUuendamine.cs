@@ -6,29 +6,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Abc.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class mergekonfliktid : Migration
+    public partial class v210526SeosteJaAndmeKlassideUuendamine : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "EventObjects",
+                name: "Creators",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                    OriginalLanguage = table.Column<string>(type: "TEXT", nullable: false),
-                    DurationMinutes = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Details = table.Column<string>(type: "TEXT", nullable: true),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Code = table.Column<string>(type: "TEXT", nullable: true)
+                    Type = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventObjects", x => x.Id);
+                    table.PrimaryKey("PK_Creators", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,6 +42,20 @@ namespace Abc.Infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Feedbacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    content = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Feedbacks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -107,24 +115,25 @@ namespace Abc.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genres",
+                name: "EventCreator",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Type = table.Column<int>(type: "INTEGER", nullable: false),
-                    EventObjectId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    EventId = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatorId = table.Column<int>(type: "INTEGER", nullable: false),
                     Details = table.Column<string>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Code = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.Id);
+                    table.PrimaryKey("PK_EventCreator", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Genres_EventObjects_EventObjectId",
-                        column: x => x.EventObjectId,
-                        principalTable: "EventObjects",
-                        principalColumn: "Id");
+                        name: "FK_EventCreator_Creators_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Creators",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,7 +146,6 @@ namespace Abc.Infra.Migrations
                     City = table.Column<string>(type: "TEXT", nullable: true),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     HallCategoryId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    HallCategoryId1 = table.Column<Guid>(type: "TEXT", nullable: true),
                     Details = table.Column<string>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Code = table.Column<string>(type: "TEXT", nullable: true)
@@ -148,11 +156,6 @@ namespace Abc.Infra.Migrations
                     table.ForeignKey(
                         name: "FK_Halls_HallCategories_HallCategoryId",
                         column: x => x.HallCategoryId,
-                        principalTable: "HallCategories",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Halls_HallCategories_HallCategoryId1",
-                        column: x => x.HallCategoryId1,
                         principalTable: "HallCategories",
                         principalColumn: "Id");
                 });
@@ -205,29 +208,37 @@ namespace Abc.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventObjectGenres",
+                name: "EventObjects",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    EventObjectId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    GenreId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
+                    OriginalLanguage = table.Column<string>(type: "TEXT", nullable: false),
+                    DurationMinutes = table.Column<int>(type: "INTEGER", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    HallId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EventId = table.Column<Guid>(type: "TEXT", nullable: false),
                     Details = table.Column<string>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     Code = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EventObjectGenres", x => x.Id);
+                    table.PrimaryKey("PK_EventObjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EventObjectGenres_EventObjects_EventObjectId",
-                        column: x => x.EventObjectId,
-                        principalTable: "EventObjects",
-                        principalColumn: "Id");
+                        name: "FK_EventObjects_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EventObjectGenres_Genres_GenreId",
-                        column: x => x.GenreId,
-                        principalTable: "Genres",
-                        principalColumn: "Id");
+                        name: "FK_EventObjects_Halls_HallId",
+                        column: x => x.HallId,
+                        principalTable: "Halls",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,6 +269,58 @@ namespace Abc.Infra.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Type = table.Column<int>(type: "INTEGER", nullable: false),
+                    EventObjectId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    Details = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Code = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Genres_EventObjects_EventObjectId",
+                        column: x => x.EventObjectId,
+                        principalTable: "EventObjects",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventObjectGenres",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EventObjectId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    GenreId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    Details = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Code = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventObjectGenres", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EventObjectGenres_EventObjects_EventObjectId",
+                        column: x => x.EventObjectId,
+                        principalTable: "EventObjects",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_EventObjectGenres_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventCreator_CreatorId",
+                table: "EventCreator",
+                column: "CreatorId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_EventObjectGenres_EventObjectId",
                 table: "EventObjectGenres",
@@ -269,6 +332,16 @@ namespace Abc.Infra.Migrations
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EventObjects_EventId",
+                table: "EventObjects",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EventObjects_HallId",
+                table: "EventObjects",
+                column: "HallId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Genres_EventObjectId",
                 table: "Genres",
                 column: "EventObjectId");
@@ -277,11 +350,6 @@ namespace Abc.Infra.Migrations
                 name: "IX_Halls_HallCategoryId",
                 table: "Halls",
                 column: "HallCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Halls_HallCategoryId1",
-                table: "Halls",
-                column: "HallCategoryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Seats_SeatCategoryId",
@@ -314,10 +382,13 @@ namespace Abc.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "EventCreator");
+
+            migrationBuilder.DropTable(
                 name: "EventObjectGenres");
 
             migrationBuilder.DropTable(
-                name: "Halls");
+                name: "Feedbacks");
 
             migrationBuilder.DropTable(
                 name: "Tickets");
@@ -326,13 +397,10 @@ namespace Abc.Infra.Migrations
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
+                name: "Creators");
+
+            migrationBuilder.DropTable(
                 name: "Genres");
-
-            migrationBuilder.DropTable(
-                name: "HallCategories");
-
-            migrationBuilder.DropTable(
-                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Seats");
@@ -348,6 +416,15 @@ namespace Abc.Infra.Migrations
 
             migrationBuilder.DropTable(
                 name: "SeatCategories");
+
+            migrationBuilder.DropTable(
+                name: "Events");
+
+            migrationBuilder.DropTable(
+                name: "Halls");
+
+            migrationBuilder.DropTable(
+                name: "HallCategories");
         }
     }
 }
