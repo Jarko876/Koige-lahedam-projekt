@@ -1,0 +1,22 @@
+﻿@page "/userroles/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IUserRolesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyCreatePage Entity="item" EntityTitle="User role" BasePath="/userroles"
+              OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(UserRole))] private UserRole item { get; set; } = default!;
+
+    protected override void OnInitialized() => item ??= new();
+
+    private async Task add()
+    {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/userroles");
+    }
+}

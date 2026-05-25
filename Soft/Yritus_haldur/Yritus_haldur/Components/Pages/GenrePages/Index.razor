@@ -1,0 +1,22 @@
+﻿@page "/genres"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IGenresRepo repo
+
+@inject NavigationManager NavigationManager
+@inject IGenresRepo repo
+
+<MyIndexPage TItem="Genre"
+             PageTitleText="Genres"
+             EntityTitle="Genre"
+             Repo="repo"
+             BasePath="genres">
+</MyIndexPage>
+
+
+@code {
+  
+}

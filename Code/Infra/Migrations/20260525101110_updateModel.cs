@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Abc.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class v210526cart_payment_pages : Migration
+    public partial class updateModel : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

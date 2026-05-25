@@ -42,8 +42,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
 builder.Services.AddScoped<ISeatsRepo, SeatsRepo>();
+builder.Services.AddScoped<IGenresRepo, GenreRepo>();
 builder.Services.AddScoped<IEventsRepo, EventsRepo>();
 builder.Services.AddScoped<IHallsRepo, HallsRepo>();
 builder.Services.AddScoped<IHallCategoriesRepo, HallCategoriesRepo>();
@@ -54,6 +54,9 @@ builder.Services.AddScoped<IPaymentsRepo, PaymentsRepo>();
 builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
 builder.Services.AddScoped<ISeatCategoriesRepo, SeatCategoriesRepo>();
 builder.Services.AddScoped<ICartsRepo, CartsRepo>();
+builder.Services.AddScoped<IEventObjectsRepo, EventObjectRepo>();
+builder.Services.AddScoped<IEventObjectGenresRepo, EventObjectGenreRepo>();
+
 
 var app = builder.Build();
 

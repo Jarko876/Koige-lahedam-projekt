@@ -43,6 +43,23 @@ namespace Abc.Infra.Migrations
                     b.ToTable("Carts");
                 });
 
+            modelBuilder.Entity("Abc.Data.Creator", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Creators");
+                });
+
             modelBuilder.Entity("Abc.Data.Event", b =>
                 {
                     b.Property<Guid>("Id")
@@ -78,6 +95,159 @@ namespace Abc.Infra.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("Abc.Data.EventCreator", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("EventCreator");
+                });
+
+            modelBuilder.Entity("Abc.Data.EventObject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("HallId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OriginalLanguage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("ReleaseDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("HallId");
+
+                    b.ToTable("EventObjects");
+                });
+
+            modelBuilder.Entity("Abc.Data.EventObjectGenre", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("EventObjectId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("GenreId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventObjectId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("EventObjectGenres");
+                });
+
+            modelBuilder.Entity("Abc.Data.Feedback", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("content")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("Abc.Data.Genre", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("EventObjectId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventObjectId");
+
+                    b.ToTable("Genres");
+                });
+
             modelBuilder.Entity("Abc.Data.Hall", b =>
                 {
                     b.Property<Guid>("Id")
@@ -99,9 +269,6 @@ namespace Abc.Infra.Migrations
                     b.Property<Guid?>("HallCategoryId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("HallCategoryId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
@@ -114,8 +281,6 @@ namespace Abc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("HallCategoryId");
-
-                    b.HasIndex("HallCategoryId1");
 
                     b.ToTable("Halls");
                 });
@@ -333,15 +498,63 @@ namespace Abc.Infra.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Abc.Data.EventCreator", b =>
+                {
+                    b.HasOne("Abc.Data.Creator", "Creator")
+                        .WithMany("EventCreators")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("Abc.Data.EventObject", b =>
+                {
+                    b.HasOne("Abc.Data.Event", "Event")
+                        .WithMany("EventObjects")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Abc.Data.Hall", "Hall")
+                        .WithMany("EventObjects")
+                        .HasForeignKey("HallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Hall");
+                });
+
+            modelBuilder.Entity("Abc.Data.EventObjectGenre", b =>
+                {
+                    b.HasOne("Abc.Data.EventObject", "EventObject")
+                        .WithMany("EventObjectGenres")
+                        .HasForeignKey("EventObjectId");
+
+                    b.HasOne("Abc.Data.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId");
+
+                    b.Navigation("EventObject");
+
+                    b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("Abc.Data.Genre", b =>
+                {
+                    b.HasOne("Abc.Data.EventObject", null)
+                        .WithMany("Genres")
+                        .HasForeignKey("EventObjectId");
+                });
+
             modelBuilder.Entity("Abc.Data.Hall", b =>
                 {
                     b.HasOne("Abc.Data.HallCategory", "HallCategory")
-                        .WithMany()
-                        .HasForeignKey("HallCategoryId");
-
-                    b.HasOne("Abc.Data.HallCategory", null)
                         .WithMany("Halls")
-                        .HasForeignKey("HallCategoryId1");
+                        .HasForeignKey("HallCategoryId");
 
                     b.Navigation("HallCategory");
                 });
@@ -389,11 +602,11 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.UserRole", b =>
                 {
                     b.HasOne("Abc.Data.Person", "Person")
-                        .WithMany("UserRoles")
+                        .WithMany()
                         .HasForeignKey("PersonId");
 
                     b.HasOne("Abc.Data.Role", "Role")
-                        .WithMany("UserRoles")
+                        .WithMany()
                         .HasForeignKey("RoleId");
 
                     b.Navigation("Person");
@@ -406,19 +619,31 @@ namespace Abc.Infra.Migrations
                     b.Navigation("Tickets");
                 });
 
+            modelBuilder.Entity("Abc.Data.Creator", b =>
+                {
+                    b.Navigation("EventCreators");
+                });
+
+            modelBuilder.Entity("Abc.Data.Event", b =>
+                {
+                    b.Navigation("EventObjects");
+                });
+
+            modelBuilder.Entity("Abc.Data.EventObject", b =>
+                {
+                    b.Navigation("EventObjectGenres");
+
+                    b.Navigation("Genres");
+                });
+
+            modelBuilder.Entity("Abc.Data.Hall", b =>
+                {
+                    b.Navigation("EventObjects");
+                });
+
             modelBuilder.Entity("Abc.Data.HallCategory", b =>
                 {
                     b.Navigation("Halls");
-                });
-
-            modelBuilder.Entity("Abc.Data.Person", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
-            modelBuilder.Entity("Abc.Data.Role", b =>
-                {
-                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }
