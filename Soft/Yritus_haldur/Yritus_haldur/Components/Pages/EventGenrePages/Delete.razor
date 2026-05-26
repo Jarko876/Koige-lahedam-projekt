@@ -1,15 +1,15 @@
-﻿@page "/eventobjectgenres/delete"
+﻿@page "/eventgenres/delete"
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
 @using Abc.Shared.Pages
-@inject IEventObjectGenresRepo repo
+@inject IEventGenresRepo repo
 @inject NavigationManager NavigationManager
 
-<MyDeletePage PageTitleText="Delete EventObjectGenre" EntityTitle="EventObjectGenre" 
-    Entity="item" BasePath="/eventobjectgenres" OnValidSubmit="delete" />    
+<MyDeletePage PageTitleText="Delete EventGenre" EntityTitle="EventGenre" 
+    Entity="item" BasePath="/eventgenres" OnValidSubmit="delete" />    
 @code {
-    private EventObjectGenre item;
+    private EventGenre item;
     [SupplyParameterFromQuery] private Guid Id { get; set; }
     protected override async Task OnInitializedAsync() {
         item = await repo.GetAsync(Id);
@@ -17,6 +17,6 @@
     }
     private async Task delete() {
         await repo.DeleteAsync(Id);
-        NavigationManager.NavigateTo("/eventobjectgenres");
+        NavigationManager.NavigateTo("/eventgenres");
     }
 }

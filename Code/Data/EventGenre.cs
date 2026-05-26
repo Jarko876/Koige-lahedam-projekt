@@ -7,11 +7,11 @@ using Abc.Data.Common;
 
 namespace Abc.Data
 {
-    public class EventObjectGenre : NamedEntity
+    public class EventGenre : NamedEntity
     {
-        [Select(typeof(EventObject))] public Guid? EventObjectId { get; set; }
+        [Select(typeof(Event))] public Guid? EventId { get; set; }
         [Select(typeof(Genre))] public Guid? GenreId { get; set; }
-        public EventObject EventObject { get; set; }
+        public Event Event { get; set; }
         public Genre Genre { get; set; }
     }
 }

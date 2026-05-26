@@ -55,7 +55,7 @@ builder.Services.AddScoped<ITicketsRepo, TicketsRepo>();
 builder.Services.AddScoped<ISeatCategoriesRepo, SeatCategoriesRepo>();
 builder.Services.AddScoped<ICartsRepo, CartsRepo>();
 builder.Services.AddScoped<IEventObjectsRepo, EventObjectRepo>();
-builder.Services.AddScoped<IEventObjectGenresRepo, EventObjectGenreRepo>();
+builder.Services.AddScoped<IEventGenresRepo, EventGenreRepo>();
 
 
 var app = builder.Build();

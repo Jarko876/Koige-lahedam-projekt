@@ -21,9 +21,9 @@ public sealed class SeatCategoryConfig : IEntityTypeConfiguration<SeatCategory> 
 }
 public sealed class EventConfig : IEntityTypeConfiguration<Event> {
     public void Configure(EntityTypeBuilder<Event> builder) {
-        //builder.HasMany(x => x.EventGenres)
-        //    .WithOne(x => x.Event)
-        //    .HasForeignKey(x => x.EventId);
+        builder.HasMany(x => x.EventGenres)
+            .WithOne(x => x.Event)
+            .HasForeignKey(x => x.EventId);
     }
 }
 public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
@@ -98,20 +98,15 @@ public sealed class GenreConfig : IEntityTypeConfiguration<Genre> {
 public sealed class EventObjectConfig : IEntityTypeConfiguration<EventObject>
 {
     public void Configure(EntityTypeBuilder<EventObject> builder) {
-        builder.HasOne(x => x.Event)
-            .WithMany(x => x.EventObjects)
-            .HasForeignKey(x => x.EventId);
-        builder.HasOne(x => x.Hall)
-            .WithMany(x => x.EventObjects)
-            .HasForeignKey(x => x.HallId);
+       
     }
 }
-public sealed class EventObjectGenreConfig : IEntityTypeConfiguration<EventObjectGenre>
+public sealed class EventGenreConfig : IEntityTypeConfiguration<EventGenre>
 {
-    public void Configure(EntityTypeBuilder<EventObjectGenre> builder) {
-        builder.HasOne(x => x.EventObject)
-            .WithMany(x => x.EventObjectGenres)
-            .HasForeignKey(x => x.EventObjectId);
+    public void Configure(EntityTypeBuilder<EventGenre> builder) {
+        builder.HasOne(x => x.Event)
+            .WithMany(x => x.EventGenres)
+            .HasForeignKey(x => x.EventId);
         builder.HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId);
     }
 }
