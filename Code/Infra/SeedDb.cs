@@ -12,7 +12,9 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
         await seedTable(db.Seats);
         //nameof(Seat.Timestamp)]);
 
-        await seedTable(db.Events);
+        await seedTable(db.Events, [
+            nameof(Event.EventGenres),
+            nameof(Event.Genres)]);
 
         await seedTable(db.Halls, [
             nameof(Hall.HallCategoryId),
@@ -24,15 +26,14 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
         await seedTable(db.Genres);
 
 
-        await seedTable(db.EventObjects, [
-            nameof(EventObject.EventObjectGenres),
-            nameof(EventObject.Genres)]);
+        await seedTable(db.EventObjects);
 
-        await seedTable(db.EventObjectGenres, [
-            nameof(EventObjectGenre.GenreId),
-            nameof(EventObjectGenre.EventObjectId),
-            nameof(EventObjectGenre.Genre),
-            nameof(EventObjectGenre.EventObject)]);
+
+        await seedTable(db.EventGenres, [
+            nameof(EventGenre.GenreId),
+            nameof(EventGenre.EventId),
+            nameof(EventGenre.Genre),
+            nameof(EventGenre.Event)]);
     }
 
     private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class {

@@ -27,7 +27,7 @@ namespace Abc.Infra
         public DbSet<Feedback> Feedbacks { get; set; } = default!;
         
         public DbSet<EventObject> EventObjects { get; set; } = default!;
-        public DbSet<EventObjectGenre> EventObjectGenres { get; set; } = default!;
+        public DbSet<EventGenre> EventGenres { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

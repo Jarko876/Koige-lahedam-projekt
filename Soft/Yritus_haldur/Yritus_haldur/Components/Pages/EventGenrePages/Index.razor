@@ -1,0 +1,13 @@
+﻿@page "/eventgenres"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IEventGenresRepo repo
+
+<MyIndexPage TItem="EventGenre" PageTitleText="Event Genres"
+        EntityTitle="Event Genre" BasePath="/eventgenres" Repo="repo" />
+
+@code {
+}

@@ -1,15 +1,15 @@
-﻿@page "/eventobjectgenres/details"
+﻿@page "/eventgenres/details"
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
 @using Abc.Shared.Pages
-@inject IEventObjectGenresRepo repo
+@inject IEventGenresRepo repo
 @inject NavigationManager NavigationManager
 
-<MyDetailsPage PageTitleText="Details Event Object Genre" Entity="item" EntityTitle="Event Object Genre"
-               EntityId="item?.Id" BasePath="/eventobjectgenres" />
+<MyDetailsPage PageTitleText="Details Event Genre" Entity="item" EntityTitle="Event Genre"
+               EntityId="item?.Id" BasePath="/eventgenres" />
 @code {
-    private EventObjectGenre item;
+    private EventGenre item;
     [SupplyParameterFromQuery] private Guid Id { get; set; }
     protected override async Task OnInitializedAsync() {
         item = await repo.GetAsync(Id);

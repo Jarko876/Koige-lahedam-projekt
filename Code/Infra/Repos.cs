@@ -10,7 +10,11 @@ namespace Abc.Infra
 
     public class EventsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Event>(c), IEventsRepo
-    { }
+    {
+        protected override IQueryable<Event> Query() => db.Events
+            .Include(x => x.EventGenres)
+            .ThenInclude(x => x.Genre);
+    }
 
     public class HallsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Hall>(c), IHallsRepo
@@ -44,18 +48,13 @@ namespace Abc.Infra
     { }
 
     public class EventObjectRepo(ApplicationDbContext c = null)
-        : EfBaseRepo<ApplicationDbContext, EventObject>(c), IEventObjectsRepo
-    {
-        protected override IQueryable<EventObject> Query() => db.EventObjects
-            .Include(x => x.EventObjectGenres)
-            .ThenInclude(x => x.Genre);
-    }
+        : EfBaseRepo<ApplicationDbContext, EventObject>(c), IEventObjectsRepo { }
 
-    public class EventObjectGenreRepo(ApplicationDbContext c = null)
-        : EfBaseRepo<ApplicationDbContext, EventObjectGenre>(c), IEventObjectGenresRepo
+    public class EventGenreRepo(ApplicationDbContext c = null)
+        : EfBaseRepo<ApplicationDbContext, EventGenre>(c), IEventGenresRepo
     {
-        protected override IQueryable<EventObjectGenre> Query() => db.EventObjectGenres
-            .Include(x => x.EventObject)
+        protected override IQueryable<EventGenre> Query() => db.EventGenres
+            .Include(x => x.Event)
             .Include(x => x.Genre);
     }
 
