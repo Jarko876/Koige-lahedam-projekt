@@ -28,5 +28,5 @@ namespace Abc.Infra {
     public interface IPaymentsRepo : IRepo<Payment> { }
     public interface ICartsRepo : IRepo<Cart> { }   
     public interface IEventObjectsRepo : IRepo<EventObject> { }
-    public interface IEventObjectGenresRepo : IRepo<EventObjectGenre> { }
+    public interface IEventGenresRepo : IRepo<EventGenre> { }
 }
