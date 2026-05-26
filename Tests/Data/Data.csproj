@@ -10,8 +10,10 @@
     <UseVSTest>true</UseVSTest>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Code\Data\Data.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Code\Data\Data.csproj" />
+		<ProjectReference Include="..\Aids\Aids.csproj" />
+	</ItemGroup>
+
 
 </Project>

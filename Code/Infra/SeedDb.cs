@@ -8,10 +8,11 @@ namespace Abc.Infra;
 public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
     public async Task Seed() {
         await db.Database.MigrateAsync();
+        
+        await seedRoles();
 
         await seedTable(db.Seats);
         //nameof(Seat.Timestamp)]);
-
         await seedTable(db.Events);
 
         await seedTable(db.Halls, [
@@ -47,6 +48,32 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
             items = [];
         }
         await set.AddRangeAsync(items);
+        await db.SaveChangesAsync();
+    }
+    private async Task seedRoles()
+    {
+        if (db.Roles.Any()) return;
+
+        await db.Roles.AddRangeAsync(
+            new Role
+            {
+                Name = "User",
+                Code = "USR",
+                Details = "Regular user"
+            },
+            new Role
+            {
+                Name = "Admin",
+                Code = "ADM",
+                Details = "Administrator"
+            },
+            new Role
+            {
+                Name = "SuperAdmin",
+                Code = "SUP",
+                Details = "Full access administrator"
+            });
+
         await db.SaveChangesAsync();
     }
 }
