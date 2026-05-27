@@ -17,7 +17,7 @@
 
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    [SupplyParameterFromForm(Name = nameof(Event))] private Seat item { get; set; }
+    [SupplyParameterFromForm(Name = nameof(Seat))] private Seat item { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -35,7 +35,7 @@
     {
         if (item is null) return;
 
-        await repo.UpdateAsync(item);
+        await repo.UpdateAsync(item!);
 
         NavigationManager.NavigateTo("/seats");
     }
