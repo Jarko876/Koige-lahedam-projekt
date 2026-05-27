@@ -73,5 +73,13 @@ namespace Abc.Infra
     public class CartsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo
     { }
+
+    public class CreatorsRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, Creator>(c), ICreatorsRepo
+    { }
+
+    public class FeedbacksRepo(ApplicationDbContext c = null)
+        : EfBaseRepo<ApplicationDbContext, Feedback>(c), IFeedbacksRepo
+    { }
 }
 

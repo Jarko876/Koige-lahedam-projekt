@@ -29,4 +29,6 @@ namespace Abc.Infra {
     public interface ICartsRepo : IRepo<Cart> { }   
     public interface IEventObjectsRepo : IRepo<EventObject> { }
     public interface IEventGenresRepo : IRepo<EventGenre> { }
+    public interface ICreatorsRepo : IRepo<Creator> { }
+    public interface IFeedbacksRepo : IRepo<Feedback> { }
 }

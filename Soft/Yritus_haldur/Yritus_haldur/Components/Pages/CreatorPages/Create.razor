@@ -1,0 +1,21 @@
+﻿@page "/creators/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject ICreatorsRepo repo
+
+<MyCreatePage Entity="creator" EntityTitle="Creator" BasePath="/creators" OnValidSubmit="AddCreator" />
+
+@code {
+    [SupplyParameterFromForm] private Creator creator { get; set; } = default!;
+    
+    protected override void OnInitialized() => creator ??= new();
+    
+    private async Task AddCreator()
+    {
+        await repo.CreateAsync(creator);
+        NavigationManager.NavigateTo("/creators");
+    }
+}

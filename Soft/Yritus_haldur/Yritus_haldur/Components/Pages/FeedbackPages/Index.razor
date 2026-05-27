@@ -1,0 +1,16 @@
+﻿@page "/feedbacks"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IFeedbacksRepo repo
+
+<MyIndexPage TItem="Feedback"
+             PageTitleText="Feedbacks"
+             EntityTitle="Feedback"
+             BasePath="/feedbacks"
+             Repo="repo" />
+
+@code {
+}

@@ -1,0 +1,16 @@
+﻿@page "/creators"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject ICreatorsRepo repo
+
+<MyIndexPage TItem="Creator"
+             PageTitleText="Creators"
+             EntityTitle="Creator"
+             BasePath="/creators"
+             Repo="repo" />
+
+@code {
+}
