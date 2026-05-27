@@ -1,0 +1,19 @@
+﻿@page "/payments/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject IPaymentsRepo repo
+
+
+<MyCreatePage Entity="item" EntityTitle="Payment" BasePath="/payments" OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(Payment))] private Payment item { get; set; } = default!;
+    protected override void OnInitialized() => item ??= new();
+    private async Task add() {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/payments");
+    }
+}

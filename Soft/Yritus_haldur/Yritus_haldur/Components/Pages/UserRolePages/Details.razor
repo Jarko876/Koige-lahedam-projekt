@@ -1,0 +1,21 @@
+﻿@page "/userroles/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IUserRolesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details user role" Entity="item" EntityTitle="User role"
+               EntityId="item?.Id" BasePath="/userroles" />
+
+@code {
+    private UserRole item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}

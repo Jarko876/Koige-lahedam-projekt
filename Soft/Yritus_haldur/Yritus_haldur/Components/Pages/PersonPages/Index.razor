@@ -1,0 +1,13 @@
+﻿@page "/persons"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject IPersonsRepo repo
+
+<MyIndexPage TItem="Person" PageTitleText="Persons"
+             EntityTitle="Person" BasePath="/persons" Repo="repo" />
+@code {
+
+}

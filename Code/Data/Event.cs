@@ -12,5 +12,8 @@ public class Event : NamedEntity {
     public DateTime ValidFrom { get; set; }
     public DateTime ValidTo { get; set; }
     //public ICollection<EventEventGenre> EventEventGenres { get; set; } = [];
-    //public ICollection<EventObject> EventObjects {  get; set; } = [];
+    public ICollection<EventObject> EventObjects {  get; set; } = [];
+
+    public ICollection<EventGenre> EventGenres { get; set; } = [];
+    public ICollection<Genre> Genres => [.. (EventGenres ?? []).Select(c => c.Genre)];
 }

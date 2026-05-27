@@ -1,5 +1,7 @@
-﻿<dl class="row">
-    @if (ad.HasProperty) {
+﻿
+    @if (ad?.HasEditor == true)
+{
+    <dl class="row">
         <dt class="col-md-3">
             <label for="@PropertyName" class="form-label">@ad.DisplayName</label>
         </dt>
@@ -9,8 +11,9 @@
                 <DynamicComponent Type="@ad.Validator" Parameters="@ad.ValidationParams" />
             }
         </dd>
+    </dl>
+
     }
-</dl>
 
 @code {
     private IEditorAdapter ad;

@@ -7,6 +7,5 @@ namespace Abc.Data
 {
     public sealed class Role : NamedEntity
     {
-        public ICollection<UserRole> UserRoles { get; set; } = [];
     }
 }

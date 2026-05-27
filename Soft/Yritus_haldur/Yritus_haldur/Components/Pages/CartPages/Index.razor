@@ -1,0 +1,21 @@
+﻿@page "/carts"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Abc.Data
+@using Abc.Infra
+
+@inject NavigationManager NavigationManager
+@inject ICartsRepo repo
+
+<MyIndexPage TItem="Cart"
+             PageTitleText="Carts"
+             EntityTitle="Carts"
+             Repo="repo"
+             BasePath="/carts">
+</MyIndexPage>
+
+
+@code {
+  
+}

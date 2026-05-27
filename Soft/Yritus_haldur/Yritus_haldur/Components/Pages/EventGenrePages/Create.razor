@@ -1,0 +1,19 @@
+﻿@page "/eventgenres/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject IEventGenresRepo repo
+@inject NavigationManager NavigationManager
+
+<MyCreatePage Entity="item" EntityTitle="EventGenre" BasePath="/eventgenres" 
+OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(EventGenre))] private EventGenre item { get; set; } = default!;
+    protected override void OnInitialized() => item ??= new();
+    private async Task add() {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/eventgenres");
+    }
+}

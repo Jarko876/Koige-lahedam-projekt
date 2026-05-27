@@ -1,0 +1,21 @@
+﻿@page "/payments"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Shared.Pages
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Abc.Data
+@using Abc.Infra
+
+@inject NavigationManager NavigationManager
+@inject IPaymentsRepo repo
+
+<MyIndexPage TItem="Payment"
+             PageTitleText="Payments"
+             EntityTitle="Payments"
+             Repo="repo"
+             BasePath="/payments">
+</MyIndexPage>
+
+
+@code {
+  
+}

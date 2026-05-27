@@ -1,24 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Abc.Data.Common;
 
 namespace Abc.Data
 {
-    public enum GenreType
+    public class Genre : NamedEntity
     {
-        Action,
-        Comedy,
-        Drama,
-        Horror,
-        ScienceFiction,
-        Romance,
-        Thriller,
-        Fantasy,
-        Animation,
-        Documentary
-    }
-    internal class Genre
-    {
-        public GenreType Type { get; set; }
+        [Required]
+        public string Type { get; set; } = "";
     }
 }

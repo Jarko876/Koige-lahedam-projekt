@@ -1,0 +1,42 @@
+﻿@page "/carts/edit"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject ICartsRepo repo
+
+<MyEditPage 
+    PageTitleText="Edit Cart"
+            EntityTitle="@item?.Name"
+            Entity="item"
+            BasePath="/carts"
+            EntityId="@Id"
+            OnValidSubmit="update" />
+
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    [SupplyParameterFromForm(Name = nameof(Cart))] private Cart item { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (repo is null) return;
+
+        item ??= await repo.GetAsync(Id);
+
+        if (item is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+
+    private async Task update()
+    {
+        if (item is null) return;
+
+        await repo.UpdateAsync(item);
+
+        NavigationManager.NavigateTo("/carts");
+    }
+}
