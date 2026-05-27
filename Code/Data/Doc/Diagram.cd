@@ -17,17 +17,19 @@
   <Class Name="Abc.Data.Event">
     <Position X="9.25" Y="4.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAQAAABAAAAAACAAAQEAAQAACAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAQAQABAAAAAAKAAAQEAAQAACAAACAAAAAAAAA=</HashCode>
       <FileName>Event.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="EventObjects" />
+      <Property Name="Genres" />
+      <Property Name="EventGenres" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Abc.Data.EventObject">
     <Position X="6.25" Y="3.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAgICAoAAQAAAIAAAAAggAAAAEAAQAAAAAAAAA=</HashCode>
+      <HashCode>BAAAAAAgIAAoAAQAAAAAAAAAggAAAAEAAQAAAAAAAAA=</HashCode>
       <FileName>EventObject.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -36,7 +38,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Abc.Data.Genre">
-    <Position X="6.25" Y="8.5" Width="1.5" />
+    <Position X="8.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Genre.cs</FileName>
@@ -118,6 +120,17 @@
       <HashCode>AIAAAAIAAAAAAAAEEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>UserRole.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="Abc.Data.EventGenre">
+    <Position X="12" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAIAAAAAIAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EventGenre.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Event" />
+      <Property Name="Genre" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
