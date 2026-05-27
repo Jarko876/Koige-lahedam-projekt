@@ -1,23 +1,23 @@
-﻿@page "/seats/edit"
+﻿@page "/eventSeatCategories/edit"
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
 @using Abc.Shared.Pages
 @inject NavigationManager NavigationManager
-@inject ISeatsRepo repo
+@inject IEventSeatCategoriesRepo repo
 
 <MyEditPage 
-    PageTitleText="Edit Seat"
+    PageTitleText="Edit Event Seat Category"
             EntityTitle="@item?.Name"
             Entity="item"
-            BasePath="/seats"
+            BasePath="/eventSeatCategories"
             EntityId="@Id"
             OnValidSubmit="update" />
 
 
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    [SupplyParameterFromForm(Name = nameof(Seat))] private Seat item { get; set; }
+    [SupplyParameterFromForm(Name = nameof(EventSeatCategory))] private EventSeatCategory item { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -37,6 +37,6 @@
 
         await repo.UpdateAsync(item!);
 
-        NavigationManager.NavigateTo("/seats");
+        NavigationManager.NavigateTo("/eventSeatCategories");
     }
 }

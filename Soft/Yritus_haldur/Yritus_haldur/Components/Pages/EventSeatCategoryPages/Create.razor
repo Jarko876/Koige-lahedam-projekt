@@ -1,0 +1,19 @@
+﻿@page "/eventSeatCategories/create"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject IEventSeatCategoriesRepo repo
+
+
+<MyCreatePage Entity="item" EntityTitle="Event Seat Category" BasePath="/eventSeatCategories" OnValidSubmit="add" />
+
+@code {
+    [SupplyParameterFromForm(Name = nameof(EventSeatCategory))] private EventSeatCategory item { get; set; } = default!;
+    protected override void OnInitialized() => item ??= new();
+    private async Task add() {
+        await repo.CreateAsync(item);
+        NavigationManager.NavigateTo("/eventSeatCategories");
+    }
+}

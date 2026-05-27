@@ -1,0 +1,25 @@
+﻿@page "/eventSeatCategories/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@inject NavigationManager NavigationManager
+@inject IEventSeatCategoriesRepo repo
+@using Abc.Data
+@using Abc.Infra;
+@using Abc.Shared.Pages
+
+<MyDeletePage PageTitleText="Delete Event Seat Category"
+              EntityTitle="Event Seat Category"
+              Entity="item"
+              BasePath="/eventSeatCategories"
+              OnValidSubmit="delete" />
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    private EventSeatCategory item { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    private async Task delete() {
+        await repo.DeleteAsync(item.Id);
+        NavigationManager.NavigateTo("/eventSeatCategories");
+    }
+}

@@ -11,6 +11,7 @@ namespace Abc.Infra
 
         public DbSet<Seat> Seats { get; set; }
         public DbSet<SeatCategory> SeatCategories { get; set; }
+        public DbSet<EventSeatCategory> EventSeatCategories { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Genre> Genres { get; set; }
 

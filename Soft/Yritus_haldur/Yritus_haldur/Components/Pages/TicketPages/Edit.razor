@@ -33,10 +33,7 @@
 
     private async Task update()
     {
-        if (item is null) return;
-
         await repo.UpdateAsync(item);
-
         NavigationManager.NavigateTo("/tickets");
     }
 }
