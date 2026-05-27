@@ -58,13 +58,26 @@ namespace Abc.Infra
             .Include(x => x.Genre);
     }
 
+    public class EventSeatCategoryRepo(ApplicationDbContext c = null)
+        : EfBaseRepo<ApplicationDbContext, EventSeatCategory>(c), IEventSeatCategoriesRepo
+    {
+        protected override IQueryable<EventSeatCategory> Query() => db.EventSeatCategories
+            .Include(x => x.Event)
+            .Include(x => x.SeatCategory);
+    }
+
     public class TicketsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Ticket>(c), ITicketsRepo
     { }
 
     public class SeatCategoriesRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, SeatCategory>(c), ISeatCategoriesRepo
-    { }
+    {
+        protected override IQueryable<SeatCategory> Query()
+        => db.SeatCategories
+            .Include(x => x.EventSeatCategories)
+                .ThenInclude(x => x.Event);
+    }
 
     public class PaymentsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Payment>(c), IPaymentsRepo

@@ -1,0 +1,27 @@
+﻿@page "/eventSeatCategories/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Infra
+@using Abc.Shared.Pages
+@using Microsoft.EntityFrameworkCore
+@using Abc.Data
+@inject IEventSeatCategoriesRepo repo
+@inject NavigationManager NavigationManager
+
+<MyDetailsPage PageTitleText="Details Event Seat Category"
+               EntityTitle="Event Seat Category"
+               Entity="item"
+               EntityId="item?.Id"
+               BasePath="/eventSeatCategories" />
+
+@code {
+    private EventSeatCategory item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    protected override async Task OnInitializedAsync() {
+        item = await repo.GetAsync(Id);
+
+        if (item is null)
+        {
+            NavigationManager.NotFound();
+        }
+    }
+}

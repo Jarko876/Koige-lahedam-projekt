@@ -11,8 +11,26 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
         
         await seedRoles();
 
-        await seedTable(db.Seats);
+        await seedTable(db.Seats, [
+            nameof(Seat.HallId),
+            nameof(Seat.SeatCategory),
+            nameof(Seat.SeatCategoryId)]);
         //nameof(Seat.Timestamp)]);
+
+        await seedTable( db.EventSeatCategories, [
+            nameof(EventSeatCategory.EventId),
+            nameof(EventSeatCategory.SeatCategoryId),
+            nameof(EventSeatCategory.Event),
+            nameof(EventSeatCategory.SeatCategory)]);
+
+        await seedTable(db.Tickets, [
+            nameof(Ticket.SeatId),
+            nameof(Ticket.Seat),
+            nameof(Ticket.EventId),
+            nameof(Ticket.Event)]);
+      
+
+        await seedTable(db.SeatCategories);
 
         await seedTable(db.Events, [
             nameof(Event.EventGenres),
