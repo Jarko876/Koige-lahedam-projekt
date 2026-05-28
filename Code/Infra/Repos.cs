@@ -6,7 +6,12 @@ namespace Abc.Infra
 {
     public class SeatsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Seat>(c), ISeatsRepo
-    { }
+    {
+        protected override IQueryable<Seat> Query() => db.Seats
+            .Include(x => x.Hall)
+            .Include(x => x.SeatCategory);
+
+    }
 
     public class EventsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Event>(c), IEventsRepo

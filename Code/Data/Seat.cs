@@ -11,10 +11,10 @@ namespace Abc.Data
         public int Number { get; set; }
         public int Row { get; set; }
 
-        public Guid? HallId { get; set; }
+        [Select(typeof(Hall))] public Guid? HallId { get; set; }
         public Hall Hall { get; set; } 
 
-        public Guid? SeatCategoryId { get; set; }
+        [Select(typeof(SeatCategory))] public Guid? SeatCategoryId { get; set; }
         public SeatCategory SeatCategory { get; set; }
 
 

@@ -22,21 +22,16 @@
     protected override async Task OnInitializedAsync()
     {
         if (repo is null) return;
-
         item ??= await repo.GetAsync(Id);
-
         if (item is null)
         {
             NavigationManager.NotFound();
         }
     }
-
     private async Task update()
     {
         if (item is null) return;
-
         await repo.UpdateAsync(item!);
-
         NavigationManager.NavigateTo("/seats");
     }
 }
