@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Text;
-using Abc.Aids;
+﻿using Abc.Aids;
 using Abc.Data.Common;
 
 namespace Abc.Data

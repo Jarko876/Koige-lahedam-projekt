@@ -1,9 +1,7 @@
 ﻿using Abc.Aids;
 using Abc.Data.Common;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+
 
 namespace Abc.Data
 {
