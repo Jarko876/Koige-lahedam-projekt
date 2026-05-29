@@ -32,7 +32,12 @@ public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
             .WithMany()
             .HasForeignKey(x => x.SeatCategoryId)
             .OnDelete(DeleteBehavior.SetNull);
-    }
+
+        builder.HasOne(x => x.Hall)
+            .WithMany()
+            .HasForeignKey(x => x.HallId);
+            
+           }
 }
 public sealed class TicketConfig : IEntityTypeConfiguration<Ticket> {
     public void Configure(EntityTypeBuilder<Ticket> builder) {
