@@ -9,8 +9,7 @@ namespace Abc.Data
         //kes ostis pileti
         public int PersonId { get; set; }
 
-
-        //public User User { get; set; } - pole veel klassi tehtud, hiljem tagasi panna.
+        public Person Person { get; set; } 
 
         //millisele kohale
         public Guid? SeatId { get; set; }
