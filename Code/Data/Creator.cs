@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Abc.Data.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Abc.Data
 {
-    public class Creator
+    public class Creator : BaseEntity
     {
-        public int Id { get; set; }
+     
         public string Name { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
 

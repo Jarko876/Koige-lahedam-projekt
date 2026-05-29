@@ -1,0 +1,24 @@
+﻿@page "/feedbacks/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject IFeedbacksRepo repo
+
+<MyDetailsPage PageTitleText="Feedback Details"
+               EntityTitle="Feedback"
+               Entity="item"
+               EntityId="item?.Id"
+               BasePath="/feedbacks" />
+
+@code {
+    private Feedback item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}

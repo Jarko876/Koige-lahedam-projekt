@@ -1,0 +1,30 @@
+﻿@page "/feedbacks/delete"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject IFeedbacksRepo repo
+
+<MyDeletePage PageTitleText="Delete Feedback"
+              EntityTitle="Feedback"
+              Entity="item"
+              BasePath="/feedbacks"
+              OnValidSubmit="delete" />
+
+@code {
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    private Feedback item { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        item ??= await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+    
+    private async Task delete()
+    {
+        await repo.DeleteAsync(item.Id);
+        NavigationManager.NavigateTo("/feedbacks");
+    }
+}

@@ -3,6 +3,7 @@ using System;
 using Abc.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260527015507_v.27.05.26-IdParandus")]
+    partial class v270526IdParandus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -206,39 +209,6 @@ namespace Abc.Infra.Migrations
                     b.HasIndex("HallId");
 
                     b.ToTable("EventObjects");
-                });
-
-            modelBuilder.Entity("Abc.Data.EventSeatCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Details")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("EventId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("SeatCategoryId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("SeatCategoryId");
-
-                    b.ToTable("EventSeatCategories");
                 });
 
             modelBuilder.Entity("Abc.Data.Feedback", b =>
@@ -448,8 +418,6 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HallId");
-
                     b.HasIndex("SeatCategoryId");
 
                     b.ToTable("Seats");
@@ -503,9 +471,6 @@ namespace Abc.Infra.Migrations
                     b.Property<int>("PersonId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid?>("PersonId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("SeatId")
                         .HasColumnType("TEXT");
 
@@ -514,8 +479,6 @@ namespace Abc.Infra.Migrations
                     b.HasIndex("CartId");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("PersonId1");
 
                     b.HasIndex("SeatId");
 
@@ -583,21 +546,6 @@ namespace Abc.Infra.Migrations
                     b.Navigation("Hall");
                 });
 
-            modelBuilder.Entity("Abc.Data.EventSeatCategory", b =>
-                {
-                    b.HasOne("Abc.Data.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId");
-
-                    b.HasOne("Abc.Data.SeatCategory", "SeatCategory")
-                        .WithMany("EventSeatCategories")
-                        .HasForeignKey("SeatCategoryId");
-
-                    b.Navigation("Event");
-
-                    b.Navigation("SeatCategory");
-                });
-
             modelBuilder.Entity("Abc.Data.Genre", b =>
                 {
                     b.HasOne("Abc.Data.Event", null)
@@ -627,16 +575,10 @@ namespace Abc.Infra.Migrations
 
             modelBuilder.Entity("Abc.Data.Seat", b =>
                 {
-                    b.HasOne("Abc.Data.Hall", "Hall")
-                        .WithMany()
-                        .HasForeignKey("HallId");
-
                     b.HasOne("Abc.Data.SeatCategory", "SeatCategory")
-                        .WithMany("Seats")
+                        .WithMany()
                         .HasForeignKey("SeatCategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Hall");
 
                     b.Navigation("SeatCategory");
                 });
@@ -651,17 +593,11 @@ namespace Abc.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("EventId");
 
-                    b.HasOne("Abc.Data.Person", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId1");
-
                     b.HasOne("Abc.Data.Seat", "Seat")
                         .WithMany()
                         .HasForeignKey("SeatId");
 
                     b.Navigation("Event");
-
-                    b.Navigation("Person");
 
                     b.Navigation("Seat");
                 });
@@ -708,13 +644,6 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.HallCategory", b =>
                 {
                     b.Navigation("Halls");
-                });
-
-            modelBuilder.Entity("Abc.Data.SeatCategory", b =>
-                {
-                    b.Navigation("EventSeatCategories");
-
-                    b.Navigation("Seats");
                 });
 #pragma warning restore 612, 618
         }
