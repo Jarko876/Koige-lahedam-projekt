@@ -1,19 +1,64 @@
 ﻿@page "/payments/create"
+@page "/payments/create/{cartId}"
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
 @using Abc.Shared.Pages
 @inject NavigationManager NavigationManager
-@inject IPaymentsRepo repo
+@inject IPaymentsRepo paymentRepo
+@inject ICartsRepo cartRepo
 
+@if (carts != null && carts.Any())
+{
+    <div class="mb-3">
+        <label for="cart" class="form-label">Select Cart</label>
+        <select class="form-control" id="cart" @bind="item.CartId" required>
+            <option value="">-- Select a Cart --</option>
+            @foreach (var cart in carts)
+            {
+                <option value="@cart.Id">@cart.Name (ID: @cart.Id.ToString().Substring(0, 8))...</option>
+            }
+        </select>
+    </div>
+}
 
-<MyCreatePage Entity="item" EntityTitle="Payment" BasePath="/payments" OnValidSubmit="add" />
+<MyCreatePage Entity="item" 
+             EntityTitle="Payment" 
+             BasePath="/payments" 
+             OnValidSubmit="add" />
 
 @code {
-    [SupplyParameterFromForm(Name = nameof(Payment))] private Payment item { get; set; } = default!;
-    protected override void OnInitialized() => item ??= new();
-    private async Task add() {
-        await repo.CreateAsync(item);
+    [Parameter]
+    public string? CartId { get; set; }
+
+    [SupplyParameterFromForm(Name = nameof(Payment))]
+    private Payment item { get; set; } = default!;
+
+    private List<Cart> carts = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        item ??= new() { PaymentDate = DateTime.Now };
+
+        // Load all carts
+        var query = new Query();
+        carts = (await cartRepo.GetAsync(query)).ToList();
+
+        // Pre-select cart if provided
+        if (!string.IsNullOrEmpty(CartId) && Guid.TryParse(CartId, out var cartId))
+        {
+            item.CartId = cartId;
+        }
+    }
+
+    private async Task add()
+    {
+        if (item.CartId == Guid.Empty)
+        {
+            return;
+        }
+
+        await paymentRepo.CreateAsync(item);
         NavigationManager.NavigateTo("/payments");
     }
 }
