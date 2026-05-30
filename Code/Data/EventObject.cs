@@ -26,5 +26,7 @@ namespace Abc.Data
         [Select(typeof(Event))] public Guid? EventId { get; set; }
 
         public Event? Event { get; set; }
+        
+        public ICollection<EventObject> Feedbacks { get; set; } = [];
     }
 }

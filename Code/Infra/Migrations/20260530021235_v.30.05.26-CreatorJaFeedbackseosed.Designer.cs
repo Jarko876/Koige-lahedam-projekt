@@ -3,6 +3,7 @@ using System;
 using Abc.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260530021235_v.30.05.26-CreatorJaFeedbackseosed")]
+    partial class v300526CreatorJaFeedbackseosed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -47,12 +50,6 @@ namespace Abc.Infra.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -103,20 +100,26 @@ namespace Abc.Infra.Migrations
 
             modelBuilder.Entity("Abc.Data.EventCreator", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Code")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CreatorId")
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("CreatorId1")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EventId")
+                    b.Property<int>("EventId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("EventId1")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -124,9 +127,9 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("CreatorId1");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("EventId1");
 
                     b.ToTable("EventCreator");
                 });
@@ -257,13 +260,7 @@ namespace Abc.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Code")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Details")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("EventObjectId")
+                    b.Property<Guid>("EventObjectID")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -274,7 +271,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventObjectId");
+                    b.HasIndex("EventObjectID");
 
                     b.ToTable("Feedbacks");
                 });
@@ -569,15 +566,13 @@ namespace Abc.Infra.Migrations
                 {
                     b.HasOne("Abc.Data.Creator", "Creator")
                         .WithMany("EventCreators")
-                        .HasForeignKey("CreatorId");
+                        .HasForeignKey("CreatorId1");
 
-                    b.HasOne("Abc.Data.Event", "Event")
+                    b.HasOne("Abc.Data.Event", null)
                         .WithMany("EventCreators")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("EventId1");
 
                     b.Navigation("Creator");
-
-                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("Abc.Data.EventGenre", b =>
@@ -633,7 +628,9 @@ namespace Abc.Infra.Migrations
                 {
                     b.HasOne("Abc.Data.EventObject", "EventObject")
                         .WithMany()
-                        .HasForeignKey("EventObjectId");
+                        .HasForeignKey("EventObjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventObject");
                 });

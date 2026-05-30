@@ -16,4 +16,5 @@ public class Event : NamedEntity {
 
     public ICollection<EventGenre> EventGenres { get; set; } = [];
     public ICollection<Genre> Genres => [.. (EventGenres ?? []).Select(c => c.Genre)];
+    public ICollection<EventCreator> EventCreators { get; set; } = [];
 }
