@@ -1,15 +1,18 @@
-﻿using Abc.Data.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Abc.Aids;
+using Abc.Data.Common;
+
 
 namespace Abc.Data
 {
     public class EventCreator : NamedEntity
     {
-        public int EventId { get; set; }
 
-        public int CreatorId { get; set; }
-        public Creator Creator { get; set; }
+        [Select(typeof(Event))]
+        public Guid? EventId { get; set; }
+        public Event? Event { get; set; }
+
+        [Select(typeof(Creator))]
+        public Guid? CreatorId { get; set; }
+        public Creator? Creator { get; set; }
     }
 }

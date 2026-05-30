@@ -1,37 +1,35 @@
-﻿@page "/seats/edit"
+﻿@page "/creators/edit"
 @attribute [ExcludeFromInteractiveRouting]
 @using Abc.Data
 @using Abc.Infra
 @using Abc.Shared.Pages
 @inject NavigationManager NavigationManager
-@inject ISeatsRepo repo
+@inject ICreatorsRepo repo
 
-<MyEditPage 
-    PageTitleText="Edit Seat"
-            EntityTitle="@item?.Name"
+<MyEditPage PageTitleText="Edit Creator"
+            EntityTitle="@item?.Id.ToString()"
             Entity="item"
-            BasePath="/seats"
+            BasePath="/creators"
             EntityId="@Id"
             OnValidSubmit="update" />
 
-
 @code {
     [SupplyParameterFromQuery] private Guid Id { get; set; }
-    [SupplyParameterFromForm(Name = nameof(Seat))] private Seat item { get; set; }
-
+    [SupplyParameterFromForm(Name = nameof(Creator))] private Creator item { get; set; }
+    
     protected override async Task OnInitializedAsync()
     {
         if (repo is null) return;
+        
         item ??= await repo.GetAsync(Id);
-        if (item is null)
-        {
-            NavigationManager.NotFound();
-        }
+        if (item is null) NavigationManager.NotFound();
     }
+    
     private async Task update()
     {
         if (item is null) return;
-        await repo.UpdateAsync(item!);
-        NavigationManager.NavigateTo("/seats");
+        
+        await repo.UpdateAsync(item);
+        NavigationManager.NavigateTo("/creators");
     }
 }

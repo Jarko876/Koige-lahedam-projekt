@@ -3,6 +3,7 @@ using System;
 using Abc.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260530024204_v.30.05.26-CreatorJaFeedbackSeosteParandused")]
+    partial class v300526CreatorJaFeedbackSeosteParandused
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -378,9 +381,6 @@ namespace Abc.Infra.Migrations
                     b.Property<Guid>("CartId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CartId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Code")
                         .HasColumnType("TEXT");
 
@@ -399,8 +399,6 @@ namespace Abc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartId");
-
-                    b.HasIndex("CartId1");
 
                     b.ToTable("Payments");
                 });
@@ -667,10 +665,6 @@ namespace Abc.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Abc.Data.Cart", null)
-                        .WithMany("Payments")
-                        .HasForeignKey("CartId1");
-
                     b.Navigation("Cart");
                 });
 
@@ -732,8 +726,6 @@ namespace Abc.Infra.Migrations
 
             modelBuilder.Entity("Abc.Data.Cart", b =>
                 {
-                    b.Navigation("Payments");
-
                     b.Navigation("Tickets");
                 });
 

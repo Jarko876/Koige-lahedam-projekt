@@ -6,7 +6,12 @@ namespace Abc.Infra
 {
     public class SeatsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Seat>(c), ISeatsRepo
-    { }
+    {
+        protected override IQueryable<Seat> Query() => db.Seats
+            .Include(x => x.Hall)
+            .Include(x => x.SeatCategory);
+
+    }
 
     public class EventsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Event>(c), IEventsRepo
@@ -87,11 +92,19 @@ namespace Abc.Infra
     }
 
     public class CartsRepo(ApplicationDbContext c = null)
-        : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo
-    {
+        : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo {
         protected override IQueryable<Cart> Query() => db.Carts
             .Include(x => x.Payments)
             .Include(x => x.Tickets);
     }
+
+    public class CreatorsRepo(ApplicationDbContext c = null)
+    : EfBaseRepo<ApplicationDbContext, Creator>(c), ICreatorsRepo
+    { }
+
+    public class FeedbacksRepo(ApplicationDbContext c = null)
+        : EfBaseRepo<ApplicationDbContext, Feedback>(c), IFeedbacksRepo
+    { }
+
 }
 

@@ -1,0 +1,24 @@
+﻿@page "/creators/details"
+@attribute [ExcludeFromInteractiveRouting]
+@using Abc.Data
+@using Abc.Infra
+@using Abc.Shared.Pages
+@inject NavigationManager NavigationManager
+@inject ICreatorsRepo repo
+
+<MyDetailsPage PageTitleText="Creator Details"
+               EntityTitle="Creator"
+               Entity="item"
+               EntityId="item?.Id"
+               BasePath="/creators" />
+
+@code {
+    private Creator item;
+    [SupplyParameterFromQuery] private Guid Id { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        item = await repo.GetAsync(Id);
+        if (item is null) NavigationManager.NotFound();
+    }
+}

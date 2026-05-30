@@ -30,4 +30,6 @@ namespace Abc.Infra {
     public interface IEventObjectsRepo : IRepo<EventObject> { }
     public interface IEventGenresRepo : IRepo<EventGenre> { }
     public interface IEventSeatCategoriesRepo : IRepo<EventSeatCategory> { }
+    public interface ICreatorsRepo : IRepo<Creator> { }
+    public interface IFeedbacksRepo : IRepo<Feedback> { }
 }
