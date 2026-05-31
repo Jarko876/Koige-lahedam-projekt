@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260530024204_v.30.05.26-CreatorJaFeedbackSeosteParandused")]
-    partial class v300526CreatorJaFeedbackSeosteParandused
+    [Migration("20260531185328_v.31.05.26.EventMuudatused")]
+    partial class v310526EventMuudatused
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,10 +38,12 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("PersonId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Carts");
                 });
@@ -78,16 +80,19 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Code")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EventType")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("HallType")
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<Guid?>("SeatCategoryId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ValidFrom")
@@ -100,6 +105,10 @@ namespace Abc.Infra.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("SeatCategoryId");
 
                     b.ToTable("Events");
                 });
@@ -131,7 +140,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("EventCreator");
+                    b.ToTable("EventCreators");
                 });
 
             modelBuilder.Entity("Abc.Data.EventGenre", b =>
@@ -180,13 +189,7 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("DurationMinutes")
-                        .HasColumnType("INTEGER");
-
                     b.Property<Guid?>("EventId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("EventObjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("HallId")
@@ -213,8 +216,6 @@ namespace Abc.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("EventObjectId");
 
                     b.HasIndex("HallId");
 
@@ -266,7 +267,7 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EventObjectId")
+                    b.Property<Guid?>("EventId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -277,7 +278,7 @@ namespace Abc.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventObjectId");
+                    b.HasIndex("EventId");
 
                     b.ToTable("Feedbacks");
                 });
@@ -378,7 +379,7 @@ namespace Abc.Infra.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CartId")
+                    b.Property<Guid?>("CartId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
@@ -514,7 +515,7 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EventId")
+                    b.Property<Guid?>("EventObjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("FinalPrice")
@@ -524,10 +525,7 @@ namespace Abc.Infra.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<Guid?>("PersonId1")
+                    b.Property<Guid?>("PersonId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("SeatId")
@@ -537,9 +535,9 @@ namespace Abc.Infra.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("EventObjectId");
 
-                    b.HasIndex("PersonId1");
+                    b.HasIndex("PersonId");
 
                     b.HasIndex("SeatId");
 
@@ -568,6 +566,26 @@ namespace Abc.Infra.Migrations
                     b.ToTable("UserRoles");
                 });
 
+            modelBuilder.Entity("Abc.Data.Cart", b =>
+                {
+                    b.HasOne("Abc.Data.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId");
+
+                    b.Navigation("Person");
+                });
+
+            modelBuilder.Entity("Abc.Data.Event", b =>
+                {
+                    b.HasOne("Abc.Data.Creator", null)
+                        .WithMany("Events")
+                        .HasForeignKey("CreatorId");
+
+                    b.HasOne("Abc.Data.SeatCategory", null)
+                        .WithMany("Events")
+                        .HasForeignKey("SeatCategoryId");
+                });
+
             modelBuilder.Entity("Abc.Data.EventCreator", b =>
                 {
                     b.HasOne("Abc.Data.Creator", "Creator")
@@ -575,7 +593,7 @@ namespace Abc.Infra.Migrations
                         .HasForeignKey("CreatorId");
 
                     b.HasOne("Abc.Data.Event", "Event")
-                        .WithMany("EventCreators")
+                        .WithMany()
                         .HasForeignKey("EventId");
 
                     b.Navigation("Creator");
@@ -604,10 +622,6 @@ namespace Abc.Infra.Migrations
                         .WithMany("EventObjects")
                         .HasForeignKey("EventId");
 
-                    b.HasOne("Abc.Data.EventObject", null)
-                        .WithMany("Feedbacks")
-                        .HasForeignKey("EventObjectId");
-
                     b.HasOne("Abc.Data.Hall", "Hall")
                         .WithMany("EventObjects")
                         .HasForeignKey("HallId");
@@ -634,11 +648,11 @@ namespace Abc.Infra.Migrations
 
             modelBuilder.Entity("Abc.Data.Feedback", b =>
                 {
-                    b.HasOne("Abc.Data.EventObject", "EventObject")
-                        .WithMany()
-                        .HasForeignKey("EventObjectId");
+                    b.HasOne("Abc.Data.Event", "Event")
+                        .WithMany("Feedbacks")
+                        .HasForeignKey("EventId");
 
-                    b.Navigation("EventObject");
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("Abc.Data.Genre", b =>
@@ -660,10 +674,8 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.Payment", b =>
                 {
                     b.HasOne("Abc.Data.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Payments")
+                        .HasForeignKey("CartId");
 
                     b.Navigation("Cart");
                 });
@@ -671,7 +683,7 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.Seat", b =>
                 {
                     b.HasOne("Abc.Data.Hall", "Hall")
-                        .WithMany()
+                        .WithMany("Seats")
                         .HasForeignKey("HallId");
 
                     b.HasOne("Abc.Data.SeatCategory", "SeatCategory")
@@ -686,23 +698,25 @@ namespace Abc.Infra.Migrations
 
             modelBuilder.Entity("Abc.Data.Ticket", b =>
                 {
-                    b.HasOne("Abc.Data.Cart", null)
+                    b.HasOne("Abc.Data.Cart", "Cart")
                         .WithMany("Tickets")
                         .HasForeignKey("CartId");
 
-                    b.HasOne("Abc.Data.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId");
+                    b.HasOne("Abc.Data.EventObject", "EventObject")
+                        .WithMany("Tickets")
+                        .HasForeignKey("EventObjectId");
 
                     b.HasOne("Abc.Data.Person", "Person")
                         .WithMany()
-                        .HasForeignKey("PersonId1");
+                        .HasForeignKey("PersonId");
 
                     b.HasOne("Abc.Data.Seat", "Seat")
                         .WithMany()
                         .HasForeignKey("SeatId");
 
-                    b.Navigation("Event");
+                    b.Navigation("Cart");
+
+                    b.Navigation("EventObject");
 
                     b.Navigation("Person");
 
@@ -712,11 +726,11 @@ namespace Abc.Infra.Migrations
             modelBuilder.Entity("Abc.Data.UserRole", b =>
                 {
                     b.HasOne("Abc.Data.Person", "Person")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("PersonId");
 
                     b.HasOne("Abc.Data.Role", "Role")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId");
 
                     b.Navigation("Person");
@@ -726,33 +740,39 @@ namespace Abc.Infra.Migrations
 
             modelBuilder.Entity("Abc.Data.Cart", b =>
                 {
+                    b.Navigation("Payments");
+
                     b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Abc.Data.Creator", b =>
                 {
                     b.Navigation("EventCreators");
+
+                    b.Navigation("Events");
                 });
 
             modelBuilder.Entity("Abc.Data.Event", b =>
                 {
-                    b.Navigation("EventCreators");
-
                     b.Navigation("EventGenres");
 
                     b.Navigation("EventObjects");
+
+                    b.Navigation("Feedbacks");
 
                     b.Navigation("Genres");
                 });
 
             modelBuilder.Entity("Abc.Data.EventObject", b =>
                 {
-                    b.Navigation("Feedbacks");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Abc.Data.Hall", b =>
                 {
                     b.Navigation("EventObjects");
+
+                    b.Navigation("Seats");
                 });
 
             modelBuilder.Entity("Abc.Data.HallCategory", b =>
@@ -760,9 +780,21 @@ namespace Abc.Infra.Migrations
                     b.Navigation("Halls");
                 });
 
+            modelBuilder.Entity("Abc.Data.Person", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Abc.Data.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
             modelBuilder.Entity("Abc.Data.SeatCategory", b =>
                 {
                     b.Navigation("EventSeatCategories");
+
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

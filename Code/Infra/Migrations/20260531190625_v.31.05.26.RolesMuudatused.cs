@@ -6,27 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Abc.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class addPaymentsToCart : Migration
+    public partial class v310526RolesMuudatused : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<Guid>(
-                name: "CartId1",
-                table: "Payments",
+                name: "RoleId",
+                table: "Persons",
                 type: "TEXT",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_CartId1",
-                table: "Payments",
-                column: "CartId1");
+                name: "IX_Persons_RoleId",
+                table: "Persons",
+                column: "RoleId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Payments_Carts_CartId1",
-                table: "Payments",
-                column: "CartId1",
-                principalTable: "Carts",
+                name: "FK_Persons_Roles_RoleId",
+                table: "Persons",
+                column: "RoleId",
+                principalTable: "Roles",
                 principalColumn: "Id");
         }
 
@@ -34,16 +34,16 @@ namespace Abc.Infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Payments_Carts_CartId1",
-                table: "Payments");
+                name: "FK_Persons_Roles_RoleId",
+                table: "Persons");
 
             migrationBuilder.DropIndex(
-                name: "IX_Payments_CartId1",
-                table: "Payments");
+                name: "IX_Persons_RoleId",
+                table: "Persons");
 
             migrationBuilder.DropColumn(
-                name: "CartId1",
-                table: "Payments");
+                name: "RoleId",
+                table: "Persons");
         }
     }
 }

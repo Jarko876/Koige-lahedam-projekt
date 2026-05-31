@@ -11,4 +11,5 @@ public sealed class Hall : NamedEntity  {
     [Select(typeof(HallCategory))]public Guid? HallCategoryId { get; set; }
     public HallCategory HallCategory { get; set; }
     public ICollection<EventObject> EventObjects { get; set; } = [];
+    public ICollection<Seat> Seats { get; set; } = [];
 }

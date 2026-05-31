@@ -13,6 +13,7 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
 
         await seedTable(db.Seats, [
             nameof(Seat.HallId),
+            nameof(Seat.Hall),
             nameof(Seat.SeatCategory),
             nameof(Seat.SeatCategoryId)]);
         //nameof(Seat.Timestamp)]);
@@ -26,18 +27,26 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
         await seedTable(db.Tickets, [
             nameof(Ticket.SeatId),
             nameof(Ticket.Seat),
-            nameof(Ticket.EventId),
-            nameof(Ticket.Event)]);
-      
+            nameof(Ticket.PersonId),
+            nameof(Ticket.Person),
+            nameof(Ticket.EventObjectId),
+            nameof(Ticket.EventObject)]);
 
-        await seedTable(db.SeatCategories);
+
+        await seedTable(db.SeatCategories, [
+            nameof(SeatCategory.EventSeatCategories),
+            nameof(SeatCategory.Events)]);
 
         await seedTable(db.Events, [
+            nameof(Event.EventObjects),
+            nameof(Event.Feedbacks),
             nameof(Event.EventGenres),
             nameof(Event.Genres)]);
 
         await seedTable(db.Halls, [
             nameof(Hall.HallCategoryId),
+            nameof(Hall.EventObjects),
+            nameof(Hall.Seats),
             nameof(Hall.HallCategory)]);
 
         await seedTable(db.HallCategories, [
@@ -46,7 +55,12 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
         await seedTable(db.Genres);
 
 
-        await seedTable(db.EventObjects);
+        await seedTable(db.EventObjects, [
+            nameof(EventObject.HallId),
+            nameof(EventObject.Hall),
+            nameof(EventObject.EventId),
+            nameof(EventObject.Event),
+            nameof(EventObject.Tickets)]);
 
 
         await seedTable(db.EventGenres, [
@@ -54,6 +68,38 @@ public sealed class SeedDb(ApplicationDbContext db, int recCnt = 20) {
             nameof(EventGenre.EventId),
             nameof(EventGenre.Genre),
             nameof(EventGenre.Event)]);
+
+        await seedTable(db.Carts, [
+            nameof(Cart.PersonId),
+            nameof(Cart.Person),
+            nameof(Cart.Tickets),
+            nameof(Cart.Payments)]);
+
+        await seedTable(db.Persons);
+
+        await seedTable(db.Payments, [
+            nameof(Payment.CartId),
+            nameof(Payment.Cart)]);
+
+        await seedTable(db.Feedbacks, [
+            nameof(Feedback.EventId),
+            nameof(Feedback.Event)]);
+
+        await seedTable(db.Creators, [
+            nameof(Creator.EventCreators),
+            nameof(Creator.Events)]);
+
+        await seedTable(db.EventCreators, [
+            nameof(EventCreator.EventId),
+            nameof(EventCreator.Event),
+            nameof(EventCreator.CreatorId),
+            nameof(EventCreator.Creator)]);
+
+        await seedTable(db.UserRoles, [
+            nameof(UserRole.PersonId),
+            nameof(UserRole.Person),
+            nameof(UserRole.RoleId),
+            nameof(UserRole.Role)]);
     }
 
     private async Task seedTable<T>(DbSet<T> set, string[] exclude = null) where T : class {

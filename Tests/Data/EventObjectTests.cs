@@ -10,7 +10,6 @@ public sealed class EventObjectTests : BaseTests<EventObject>
     [TestMethod] public void TypeTest() => isProperty<string>(nameof(EventObject.Type));
     [TestMethod] public void RatingTest() => isProperty<string>(nameof(EventObject.Rating));
     [TestMethod] public void OriginalLanguageTest() => isProperty<string>(nameof(EventObject.OriginalLanguage));
-    [TestMethod] public void DurationMinutesTest() => isProperty<int>(nameof(EventObject.DurationMinutes));
     [TestMethod] public void DescriptionTest() => isProperty<string>(nameof(EventObject.Description));
     [TestMethod] public void ReleaseDateTest() => isProperty<DateTime>(nameof(EventObject.ReleaseDate));
     [TestMethod] public void HallIdTest() => isProperty<Guid?>(nameof(EventObject.HallId));

@@ -6,8 +6,8 @@ namespace Abc.Data;
 
 public class Cart : NamedEntity {
 
-    public int PersonId { get; set; }
-    //public Person Person { get; set; } - hiljem lisada?
+    public Guid? PersonId { get; set; }
+    public Person Person { get; set; }
     public DateTime CreatedAt { get; set; }
     public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>(); //üks ostukorv võib sisaldada mitut piletit
     public ICollection<Payment> Payments { get; set; } = new List<Payment>(); //üks ostukorv võib sisaldada mitut maksemetoodust

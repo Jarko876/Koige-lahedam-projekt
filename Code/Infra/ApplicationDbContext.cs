@@ -14,7 +14,6 @@ namespace Abc.Infra
         public DbSet<EventSeatCategory> EventSeatCategories { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Genre> Genres { get; set; }
-
         public DbSet<Event> Events { get; set; } = default!;
         public DbSet<Hall> Halls { get; set; } = default!;
         public DbSet<HallCategory> HallCategories { get; set; } = default!;
@@ -23,10 +22,9 @@ namespace Abc.Infra
         public DbSet<UserRole> UserRoles { get; set; } = default!;
         public DbSet<Payment> Payments { get; set; } = default!;
         public DbSet<Cart> Carts { get; set; } = default!;
-
         public DbSet<Creator> Creators { get; set; } = default!;
+        public DbSet<EventCreator> EventCreators { get; set; } = default!;
         public DbSet<Feedback> Feedbacks { get; set; } = default!;
-        
         public DbSet<EventObject> EventObjects { get; set; } = default!;
         public DbSet<EventGenre> EventGenres { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)

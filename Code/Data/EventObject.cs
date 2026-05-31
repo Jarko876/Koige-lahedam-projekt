@@ -13,8 +13,6 @@ namespace Abc.Data
 
         [Required] public string OriginalLanguage { get; set; } = "";
 
-        [Range(1, 1000)] public int DurationMinutes { get; set; }
-
         [Required] public string Description { get; set; } = "";
 
         public DateTime ReleaseDate { get; set; }
@@ -26,7 +24,7 @@ namespace Abc.Data
         [Select(typeof(Event))] public Guid? EventId { get; set; }
 
         public Event? Event { get; set; }
-        
-        public ICollection<EventObject> Feedbacks { get; set; } = [];
+    
+        public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
     }
 }

@@ -24,6 +24,14 @@ public sealed class EventConfig : IEntityTypeConfiguration<Event> {
         builder.HasMany(x => x.EventGenres)
             .WithOne(x => x.Event)
             .HasForeignKey(x => x.EventId);
+
+        builder.HasMany(x => x.EventObjects)
+            .WithOne(x => x.Event)
+            .HasForeignKey(x => x.EventId);
+
+        builder.HasMany(x => x.Feedbacks)
+            .WithOne(x => x.Event)
+            .HasForeignKey(x => x.EventId);
     }
 }
 public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
@@ -34,7 +42,7 @@ public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(x => x.Hall)
-            .WithMany()
+            .WithMany(x => x.Seats)
             .HasForeignKey(x => x.HallId);
             
            }
@@ -42,6 +50,9 @@ public sealed class SeatConfig : IEntityTypeConfiguration<Seat> {
 public sealed class TicketConfig : IEntityTypeConfiguration<Ticket> {
     public void Configure(EntityTypeBuilder<Ticket> builder) {
         builder.Property(x => x.FinalPrice).HasPrecision(18, 2);
+        builder.HasOne(x => x.Cart)
+            .WithMany(x => x.Tickets)
+            .HasForeignKey(x => x.CartId);
     }
 }
 public sealed class PersonConfig : IEntityTypeConfiguration<Person>
@@ -55,6 +66,9 @@ public sealed class RoleConfig : IEntityTypeConfiguration<Role>
 {
     public void Configure(EntityTypeBuilder<Role> builder)
     {
+        builder.HasMany(x => x.UserRoles)
+            .WithOne(x => x.Role)
+            .HasForeignKey(x => x.RoleId);
     }
 }
 
@@ -67,7 +81,7 @@ public sealed class UserRoleConfig : IEntityTypeConfiguration<UserRole>
             .HasForeignKey(x => x.PersonId);
 
         builder.HasOne(x => x.Role)
-            .WithMany()
+            .WithMany(x => x.UserRoles)
             .HasForeignKey(x => x.RoleId);
 
         builder.HasIndex(x => new { x.PersonId, x.RoleId }).IsUnique();
@@ -80,21 +94,10 @@ public sealed class PaymentConfig : IEntityTypeConfiguration<Payment>
     {
         builder.Property(x => x.Amount).HasPrecision(18, 2);
         builder.HasOne(x => x.Cart)
-            .WithMany()
+            .WithMany(x => x.Payments)
             .HasForeignKey(x => x.CartId);
     }
 }
-
-/*
-public sealed class CartConfig : IEntityTypeConfiguration<Cart>
-{
-    public void Configure(EntityTypeBuilder<Cart> builder)
-    {
-        builder.HasMany(x => x.Tickets)
-            .WithOne()  // Remove .WithOne(x => x.Cart) since Ticket doesn't have Cart property
-            .HasForeignKey(x => x.CartId);
-    }
-} */
 
 public sealed class GenreConfig : IEntityTypeConfiguration<Genre> {
     public void Configure(EntityTypeBuilder<Genre> builder) { }
@@ -103,7 +106,13 @@ public sealed class GenreConfig : IEntityTypeConfiguration<Genre> {
 public sealed class EventObjectConfig : IEntityTypeConfiguration<EventObject>
 {
     public void Configure(EntityTypeBuilder<EventObject> builder) {
-       
+        builder.HasOne(x => x.Hall)
+            .WithMany(x => x.EventObjects)
+            .HasForeignKey(x => x.HallId);
+
+        builder.HasMany(x => x.Tickets)
+            .WithOne(x => x.EventObject)
+            .HasForeignKey(x => x.EventObjectId);
     }
 }
 public sealed class EventGenreConfig : IEntityTypeConfiguration<EventGenre>
@@ -115,21 +124,34 @@ public sealed class EventGenreConfig : IEntityTypeConfiguration<EventGenre>
         builder.HasOne(x => x.Genre).WithMany().HasForeignKey(x => x.GenreId);
     }
 }
+public sealed class CartConfig : IEntityTypeConfiguration<Cart> {
+    public void Configure(EntityTypeBuilder<Cart> builder) {
+        builder.HasOne(x => x.Person)
+            .WithMany()
+            .HasForeignKey(x => x.PersonId);
+    }
+}
 
-//public sealed class CountryCurrencyConfig : IEntityTypeConfiguration<CountryCurrency>{
-//    public void Configure(EntityTypeBuilder<CountryCurrency> builder)
-//    {
-//        b.HasOne(x => x.Country)
-//            .WithMany(x => x.CountryCurrencies)
-//            .HasForeignKey(x => x.CountryId);
-//        b.HasOne(x => x.Currency).WithMany().HasForeignKey(x => x.CurrencyId);
-//    }
-//}
-//public sealed class CountryConfig : IEntityTypeConfiguration<Country> {
-//    public void Configure(EntityTypeBuilder<Country> builder)
-//    {
-//        b.HasMany(x => x.CountryCurrencies)
-//            .WithOne(x => x.Country)
-//            .HasForeignKey(x => x.CountryId);
-//    }
-//}
+public sealed class CreatorConfig : IEntityTypeConfiguration<Creator> {
+    public void Configure(EntityTypeBuilder<Creator> builder) {
+        builder.HasMany(x => x.EventCreators)
+            .WithOne(x => x.Creator)
+            .HasForeignKey(x => x.CreatorId);
+    }
+}
+
+public sealed class EventCreatorConfig : IEntityTypeConfiguration<EventCreator> {
+    public void Configure(EntityTypeBuilder<EventCreator> builder) { }
+}
+
+public sealed class FeedbackConfig : IEntityTypeConfiguration<Feedback> {
+    public void Configure(EntityTypeBuilder<Feedback> builder) { }
+}
+
+public sealed class EventSeatCategoryConfig : IEntityTypeConfiguration<EventSeatCategory> {
+    public void Configure(EntityTypeBuilder<EventSeatCategory> builder) {
+        builder.HasOne(x => x.SeatCategory)
+            .WithMany(x => x.EventSeatCategories)
+            .HasForeignKey(x => x.SeatCategoryId);
+    }
+}

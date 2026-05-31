@@ -94,7 +94,6 @@ namespace Abc.Infra
     public class CartsRepo(ApplicationDbContext c = null)
         : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo {
         protected override IQueryable<Cart> Query() => db.Carts
-            .Include(x => x.Payments)
             .Include(x => x.Tickets);
     }
 
