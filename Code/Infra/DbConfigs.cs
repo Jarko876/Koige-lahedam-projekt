@@ -95,7 +95,9 @@ public sealed class PaymentConfig : IEntityTypeConfiguration<Payment>
         builder.Property(x => x.Amount).HasPrecision(18, 2);
         builder.HasOne(x => x.Cart)
             .WithMany(x => x.Payments)
-            .HasForeignKey(x => x.CartId);
+            .HasForeignKey(x => x.CartId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 }
 
@@ -128,7 +130,9 @@ public sealed class CartConfig : IEntityTypeConfiguration<Cart> {
     public void Configure(EntityTypeBuilder<Cart> builder) {
         builder.HasOne(x => x.Person)
             .WithMany()
-            .HasForeignKey(x => x.PersonId);
+            .HasForeignKey(x => x.PersonId)
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }
 
