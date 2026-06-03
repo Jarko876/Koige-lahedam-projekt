@@ -13,51 +13,6 @@
                EntityId="item?.Id"
                BasePath="/carts" />
 
-@if (item?.Payments?.Any() == true)
-{
-    <h5 class="mt-4">Payments (@item.Payments.Count)</h5>
-    <div class="table-responsive">
-        <table class="table table-sm">
-            <thead><tr><th>Amount</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
-            <tbody>
-                @foreach (var payment in item.Payments)
-                {
-                    <tr>
-                        <td>@payment.Amount</td>
-                        <td>@payment.PaymentStatus</td>
-                        <td>@payment.PaymentDate.ToString("g")</td>
-                        <td><a href="/payments/details?id=@payment.Id" class="btn btn-sm btn-info">View</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-
-@if (item?.Tickets?.Any() == true)
-{
-    <h5 class="mt-4">Tickets (@item.Tickets.Count)</h5>
-    <div class="table-responsive">
-        <table class="table table-sm">
-            <thead><tr><th>Seat</th><th>Price</th><th>Action</th></tr></thead>
-            <tbody>
-                @foreach (var ticket in item.Tickets)
-                {
-                    <tr>
-                        <td>@ticket.Seat?.Name</td>
-                        <td>@ticket.FinalPrice.ToString("C")</td>
-                        <td><a href="/tickets/details?id=@ticket.Id" class="btn btn-sm btn-info">View</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-
-<div class="mt-3">
-    <a href="/payments/create/@item?.Id" class="btn btn-success btn-sm">Add Payment</a>
-</div>
-
 @code {
     private Cart item;
     [SupplyParameterFromQuery] private Guid Id { get; set; }

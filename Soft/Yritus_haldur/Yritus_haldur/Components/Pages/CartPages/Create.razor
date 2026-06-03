@@ -6,14 +6,17 @@
 @inject NavigationManager NavigationManager
 @inject ICartsRepo repo
 
+<MyEntitiesSelect @bind-Value="item.PersonId"
+                  EntityType="typeof(Person)"
+                  DisplayProperty="FirstName" />
 
 <MyCreatePage Entity="item" EntityTitle="Cart" BasePath="/carts" OnValidSubmit="add" />
 
 @code {
     [SupplyParameterFromForm(Name = nameof(Cart))] private Cart item { get; set; } = default!;
-    protected override void OnInitialized() => item ??= new();
+    protected override void OnInitialized() => item ??= new() { CreatedAt = DateTime.Now };
     private async Task add() {
         await repo.CreateAsync(item);
-        NavigationManager.NavigateTo("/payments");
+        NavigationManager.NavigateTo("/carts");
     }
 }

@@ -4,6 +4,8 @@ using Abc.Soft.Yritus_haldur.Components.Account;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using static Abc.Infra.HallCategoriesRepo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +32,9 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString));
 
 builder.Services.AddQuickGridEntityFrameworkAdapter();
+builder.Services.Configure<JsonSerializerOptions>(options => {
+    options.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options =>

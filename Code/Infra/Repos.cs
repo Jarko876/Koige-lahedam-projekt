@@ -92,10 +92,7 @@ namespace Abc.Infra
     }
 
     public class CartsRepo(ApplicationDbContext c = null)
-        : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo {
-        protected override IQueryable<Cart> Query() => db.Carts
-            .Include(x => x.Tickets);
-    }
+        : EfBaseRepo<ApplicationDbContext, Cart>(c), ICartsRepo { }
 
     public class CreatorsRepo(ApplicationDbContext c = null)
     : EfBaseRepo<ApplicationDbContext, Creator>(c), ICreatorsRepo

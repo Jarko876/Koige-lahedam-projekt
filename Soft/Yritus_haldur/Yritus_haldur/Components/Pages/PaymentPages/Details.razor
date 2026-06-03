@@ -13,20 +13,7 @@
                EntityId="item?.Id"
                BasePath="/payments" />
 
-@if (item?.Cart != null)
-{
-    <div class="mt-4">
-        <h5>Related Cart</h5>
-        <div class="card">
-            <div class="card-body">
-                <p><strong>Cart Name:</strong> @item.Cart.Name</p>
-                <p><strong>Cart ID:</strong> @item.Cart.Id</p>
-                <p><strong>Created:</strong> @item.Cart.CreatedAt.ToString("g")</p>
-                <a href="/carts/details?id=@item.Cart.Id" class="btn btn-info btn-sm">View Cart Details</a>
-            </div>
-        </div>
-    </div>
-}
+<MyEntityViewer Entity="@item.Cart" />
 
 @code {
     private Payment item;
